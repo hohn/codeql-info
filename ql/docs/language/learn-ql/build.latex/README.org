@@ -1,0 +1,58 @@
+* Contents
+  This directory has two PDF files pre-built from the codeql documentation tree.
+
+  This is the same content as
+  https://codeql.github.com/docs/codeql-language-guides/, but built from the
+  source's master branch as of [2021-07-27 Tue], resulting in a slightly different
+  structure. 
+
+  The files:
+  - [[./LearningCodeQL-768e5190a1.pdf]] uses the Bitstream Charter font instead of Times
+    Roman
+  - [[./LearningCodeQL-768e5190a1-14pt.pdf]] also uses the Bitstream Charter font
+    instead of Times Roman, and additionally uses a 14pt font size for smaller
+    devices like ipads.
+
+* Building the documentation
+  Here is a very short summary of the build steps for the files.
+
+  #+BEGIN_SRC sh
+    # Clone the codeql library
+    cd ~/local/vmsync
+    git clone https://github.com/github/codeql ql
+
+    # Install prerequisites
+    pip install -U sphinx==1.7.9
+
+    # Build the html documentation 
+    cd ~/local/vmsync/ql/docs/language/learn-ql/
+    sphinx-build -b html . build.html
+
+    # View one of the index pages
+    open build.html/codeql-language-guides/codeql-library-for-javascript.html
+
+    # Build the PDF version
+    cd ~/local/vmsync/ql/docs/language/learn-ql/
+    sphinx-build -b latex . build.latex
+    cd build.latex/
+
+    # Customize the latex source
+    # More depth for table of contents
+    perl -i -p -e 's/\\setcounter\{tocdepth\}\{0\}/\\setcounter{tocdepth}{3}/g;' LearningCodeQL.tex
+    # Change the font:
+    # comment
+    #     % \usepackage{times}
+    # and use 
+    #     \usepackage[bitstream-charter]{mathdesign}
+    #     \renewcommand{\baselinestretch}{1.1}
+    # instead.
+
+    # For the 14pt version, add:
+    #     \usepackage[fontsize=14]{scrextend}
+
+    # Run xelatex twice
+    xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
+    xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
+
+    open LearningCodeQL.pdf 
+  #+END_SRC
