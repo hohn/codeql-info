@@ -12,6 +12,9 @@
   - [[./LearningCodeQL-768e5190a1-14pt.pdf]] also uses the Bitstream Charter font
     instead of Times Roman, and additionally uses a 14pt font size for smaller
     devices like ipads.
+  - [[./QLlanguagereference-14pt.pdf]] also uses the Bitstream Charter font
+    instead of Times Roman, and additionally uses a 14pt font size for smaller
+    devices like ipads.
 
 * Building the documentation
   Here is a very short summary of the build steps for the files.
@@ -55,4 +58,35 @@
     xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
 
     open LearningCodeQL.pdf 
+  #+END_SRC
+
+  For the QL language reference:
+  #+BEGIN_SRC sh
+    # Build the PDF version
+    cd ~/local/vmsync/ql/docs/language/ql-handbook
+    sphinx-build -b latex . build.latex
+
+    # Customize the latex source
+    cd ~/local/vmsync/ql/docs/language/ql-handbook/build.latex/
+
+    # More depth for table of contents: change to 
+    # \setcounter{tocdepth}{3}
+    # 
+    # Change the font for the 14pt version:
+    # comment
+    #     % \usepackage{times}
+    # and use 
+    #     \usepackage[bitstream-charter]{mathdesign}
+    #     \renewcommand{\baselinestretch}{1.1}
+    # instead.
+    # 
+    # For the 14pt version, add:
+    #     \usepackage[fontsize=14]{scrextend}
+
+    # Run xelatex twice
+    xelatex -shell-escape  -interaction=nonstopmode QLlanguagereference.tex
+    xelatex -shell-escape  -interaction=nonstopmode QLlanguagereference.tex
+
+    open QLlanguagereference.pdf 
+
   #+END_SRC
