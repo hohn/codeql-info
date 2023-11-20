@@ -1,0 +1,7 @@
+* codeql-info
+  Informal collection of codeql material.
+
+  The generated html does not render when browsing this repository.  To browse the
+  html, clone this repository and start browsing locally from
+  =ql/docs/language/learn-ql/build.html-5f4acb8/codeql-overview/index.html=
+

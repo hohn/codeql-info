@@ -37,14 +37,14 @@
     --- a/docs/codeql/conf.py
     +++ b/docs/codeql/conf.py
     @@ -51,8 +51,8 @@ import sys
- 
+
      def setup(sphinx):
          sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))	
     -    from qllexer import QLLexer
     -    sphinx.add_lexer("ql", QLLexer())
     +    # from qllexer import QLLexer
     +    # sphinx.add_lexer("ql", QLLexer())
- 
+
      # The version of CodeQL for the current release you're documenting, acts as replacement for
      # |version| and |release|. Not currently used.
     diff --git a/docs/codeql/ql-training/conf.py b/docs/codeql/ql-training/conf.py
@@ -52,14 +52,14 @@
     --- a/docs/codeql/ql-training/conf.py
     +++ b/docs/codeql/ql-training/conf.py
     @@ -48,8 +48,8 @@ import os
- 
+
      def setup(sphinx):
          sys.path.insert(0, os.path.join(os.path.dirname(__file__), os.path.pardir))
     -    from qllexer import QLLexer
     -    sphinx.add_lexer("ql", QLLexer())
     +    # from qllexer import QLLexer
     +    # sphinx.add_lexer("ql", QLLexer())
- 
+
      # Set QL as the default language for highlighting code. Set to none to disable 
      # syntax highlighting. If omitted or left blank, it defaults to Python 3. 
     @@ -122,4 +122,4 @@ html_theme_options = {'font_size': '16px',
@@ -96,38 +96,54 @@
     # and re-build
     sphinx-build -b html . build.html
 
-    # keep a copy
+    # Keep a copy
     cd ~/local/codeql-info/ql/docs/language/learn-ql/
     cp -r ~/local/0ec126bc/ql/docs/codeql/build.html build.html-$(git rev-parse --short HEAD)
 
     # View main index page
     open ~/local/codeql-info/ql/docs/language/learn-ql/build.html-$(git rev-parse --short HEAD)/codeql-overview/index.html
 
-
     #* Build the PDF version
-    cd ~/local/vmsync/ql/docs/language/learn-ql/
+    cd ~/local/0ec126bc/ql/docs/codeql/
     sphinx-build -b latex . build.latex
     cd build.latex/
 
-    # Customize the latex source
-    # More depth for table of contents
-    perl -i -p -e 's/\\setcounter\{tocdepth\}\{0\}/\\setcounter{tocdepth}{3}/g;' LearningCodeQL.tex
-    # Change the font:
-    # comment
-    #     % \usepackage{times}
-    # and use 
-    #     \usepackage[bitstream-charter]{mathdesign}
-    #     \renewcommand{\baselinestretch}{1.1}
-    # instead.
+    # fails:
+    # make all
 
-    # For the 14pt version, add:
-    #     \usepackage[fontsize=14]{scrextend}
+    pdflatex codeqldocumentation.tex
 
-    # Run xelatex twice
-    xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
-    xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
+    open codeqldocumentation.pdf
 
-    open LearningCodeQL.pdf 
+    # Keep a copy
+    cd ~/local/codeql-info/ql/docs/language/learn-ql/
+    dest=$HOME/local/codeql-info/ql/docs/language/learn-ql/build.latex-$(git rev-parse --short HEAD)
+
+    mkdir $dest
+    cd $dest
+    cp ~/local/0ec126bc/ql/docs/codeql/build.latex/codeqldocumentation.pdf .
+
+
+    # # Optional:
+    # # Customize the latex source
+    # # More depth for table of contents
+    # perl -i -p -e 's/\\setcounter\{tocdepth\}\{0\}/\\setcounter{tocdepth}{3}/g;' LearningCodeQL.tex
+    # # Change the font:
+    # # comment
+    # #     % \usepackage{times}
+    # # and use 
+    # #     \usepackage[bitstream-charter]{mathdesign}
+    # #     \renewcommand{\baselinestretch}{1.1}
+    # # instead.
+
+    # # For the 14pt version, add:
+    # #     \usepackage[fontsize=14]{scrextend}
+
+    # # Run xelatex twice
+    # xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
+    # xelatex -shell-escape  -interaction=nonstopmode LearningCodeQL.tex
+
+    # open LearningCodeQL.pdf 
   #+END_SRC
 
   For the QL language reference:
