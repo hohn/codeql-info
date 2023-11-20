@@ -5,3 +5,7 @@
   html, clone this repository and start browsing locally from
   =ql/docs/language/learn-ql/build.html-5f4acb8/codeql-overview/index.html=
 
+  There is also a pdf version [[https://github.com/hohn/codeql-info/blob/main/ql/docs/language/learn-ql/build.latex-e52393d/codeqldocumentation.pdf][here]].  This renders without downloading, but the
+  document is large.  Downloading is recommended.
+  
+  
