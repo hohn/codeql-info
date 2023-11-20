@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SARIF output &#8212; CodeQL</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=93459777" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exit codes" href="exit-codes.html" />
+    <link rel="prev" title="Query reference files" href="query-reference-files.html" />
+
+<title>CodeQL docs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+<link rel="stylesheet" href="../_static/primer.css" type="text/css" />
+
+
+  </head><body>
+<header class="Header">
+    <div class="Header-item--full">
+        <a href="https://codeql.github.com/docs" class="Header-link f2 d-flex flex-items-center">
+            <!-- <%= octicon "mark-github", class: "mr-2", height: 32 %> -->
+            <svg height="32" class="octicon octicon-mark-github mr-2" viewBox="0 0 16 16" version="1.1" width="32"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+            <span class="hide-sm">CodeQL documentation</span>
+        </a>
+    </div>
+    <div class="Header-item hide-sm hide-md">
+        <script src="https://addsearch.com/js/?key=93b4d287e2fc079a4089412b669785d5&categories=!0xhelp.semmle.com,0xcodeql.github.com,1xdocs,1xcodeql-standard-libraries,1xcodeql-query-help"></script>
+    </div>
+    <div class="Header-item">
+
+        <details class="dropdown details-reset details-overlay d-inline-block">
+            <summary class="btn bg-gray-dark text-white border" aria-haspopup="true">
+                CodeQL resources
+                <div class="dropdown-caret"></div>
+            </summary>
+
+            <ul class="dropdown-menu dropdown-menu-se dropdown-menu-dark">
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-overview">CodeQL overview</a></li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL tools
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-for-visual-studio-code">CodeQL for VS Code</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-cli">CodeQL CLI</a>
+                </li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL guides
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/writing-codeql-queries">Writing CodeQL queries</a></li>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-language-guides">CodeQL language guides</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Reference docs
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/ql-language-reference/">QL language
+                        reference</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-standard-libraries">CodeQL
+                        standard-libraries</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-query-help">CodeQL
+                        query help</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Source files
+                </div>
+                <li><a class="dropdown-item" href="https://github.com/github/codeql">CodeQL repository</a>
+            </ul>
+        </details>
+
+    </div>
+
+</header>
+<main class="bg-gray-light clearfix">
+<nav class="SideNav position-sticky top-0 col-lg-3 col-md-3 float-left p-4 hide-sm hide-md overflow-y-auto">
+
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../codeql-overview/index.html">CodeQL overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-for-visual-studio-code/index.html">CodeQL for Visual Studio Code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CodeQL CLI</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using-the-codeql-cli.html">Using the CodeQL CLI</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="codeql-cli-reference.html">CodeQL CLI reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="about-codeql-packs.html">About CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="about-ql-packs.html">About QL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="query-reference-files.html">Query reference files</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SARIF output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exit-codes.html">Exit codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extractor-options.html">Extractor options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference external" href="https://codeql.github.com/docs/codeql-cli/manual">CodeQL CLI manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../writing-codeql-queries/index.html">Writing CodeQL queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-language-guides/index.html">CodeQL language guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ql-language-reference/index.html">QL language reference</a></li>
+</ul>
+
+
+</nav>
+
+
+<div class="body col-sm-12 col-md-9 col-lg-9 float-left border-left">
+
+    <div class="hide-lg hide-xl px-4 pt-4">
+        
+<div class="related" role="navigation" aria-label="related navigation">
+    <ul>
+        <li class="nav-item nav-item-0"><a href="../contents.html">CodeQL</a> &#187;</li>
+        <li class="nav-item nav-item-1"><a href="index.html"
+                >CodeQL CLI</a> &#187;</li>
+        <li class="nav-item nav-item-2"><a href="codeql-cli-reference.html"
+                accesskey="U">CodeQL CLI reference</a> &#187;</li> 
+    </ul>
+</div>
+    </div>
+
+    <article class="p-4 col-lg-10 col-md-10 col-sm-12">
+        
+  <section id="sarif-output">
+<span id="id1"></span><h1>SARIF output<a class="headerlink" href="#sarif-output" title="Link to this heading">¶</a></h1>
+<p>CodeQL supports SARIF as an output format for sharing static analysis results.</p>
+<p>SARIF is designed to represent the output of a broad range of static analysis
+tools, and there are many features in the SARIF specification that are
+considered “optional”. This document details the output produced when using the
+format type <code class="docutils literal notranslate"><span class="pre">sarifv2.1.0</span></code>, which corresponds to the SARIF v2.1.0.csd1
+specification.
+For more information on selecting a file format for your analysis results, see
+the <a class="reference external" href="../manual/database-analyze">database analyze reference</a>.</p>
+<section id="sarif-specification-and-schema">
+<h2>SARIF specification and schema<a class="headerlink" href="#sarif-specification-and-schema" title="Link to this heading">¶</a></h2>
+<p>This topic is intended to be read alongside the detailed SARIF specification.
+For more information on the specification and the SARIF schema, see the <a class="reference external" href="https://github.com/oasis-tcs/sarif-spec/tree/master/Documents/CommitteeSpecificationDrafts/">SARIF
+specification documentation</a>
+on GitHub.</p>
+</section>
+<section id="change-notes">
+<h2>Change notes<a class="headerlink" href="#change-notes" title="Link to this heading">¶</a></h2>
+<section id="changes-between-versions">
+<h3>Changes between versions<a class="headerlink" href="#changes-between-versions" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>CodeQL version</p></th>
+<th class="head"><p>Format type</p></th>
+<th class="head"><p>Changes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2.0.0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sarifv2.1.0</span></code></p></td>
+<td><p>First version of this format.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="future-changes-to-the-output">
+<h3>Future changes to the output<a class="headerlink" href="#future-changes-to-the-output" title="Link to this heading">¶</a></h3>
+<p>The output produced for a given specific format type (for example
+<code class="docutils literal notranslate"><span class="pre">sarifv2.1.0</span></code>) may change in future CodeQL releases. We will endeavor to
+maintain backwards compatibility with consumers of the generated SARIF by
+ensuring that:</p>
+<ul class="simple">
+<li><p>No field which is marked as “Always” being generated will be removed.</p></li>
+<li><p>The circumstances under which “Optional” fields are generated may change.
+Consumers of the CodeQL SARIF output should be robust to the presence or absence
+of these fields.</p></li>
+</ul>
+<p>New output fields may be added in future releases under the same format
+type–these are not considered to break backwards compatibility, and consumers
+should be robust to the presence of newly added fields.</p>
+<p>New format argument types may be added in future versions of CodeQL—for example,
+to support new versions of SARIF. These have no guarantee of backwards
+compatibility, unless explicitly documented.</p>
+</section>
+</section>
+<section id="generated-sarif-objects">
+<h2>Generated SARIF objects<a class="headerlink" href="#generated-sarif-objects" title="Link to this heading">¶</a></h2>
+<p>This details each SARIF component that may be generated, along with any specific
+circumstances. We omit any properties that are never generated.</p>
+<section id="sariflog-object">
+<h3><code class="docutils literal notranslate"><span class="pre">sarifLog</span></code> object<a class="headerlink" href="#sariflog-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">$schema</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Provides a link to the <a class="reference external" href="https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json">SARIF schema</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>The version of the SARIF used to generate the output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runs</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>An array containing a single run object, for one language.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="run-object">
+<h3><code class="docutils literal notranslate"><span class="pre">run</span></code> object<a class="headerlink" href="#run-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tool</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">originalUriBaseIds</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>A dictionary of <code class="docutils literal notranslate"><span class="pre">uriBaseIds</span></code> to artifactLocations representing the original locations on the analysis machine. At a minimum, this will contain the <code class="docutils literal notranslate"><span class="pre">%SRCROOT%</span></code> <code class="docutils literal notranslate"><span class="pre">uriBaseId</span></code>, which represents the root location on the analysis machine of the source code for the analyzed project.
+Each <code class="docutils literal notranslate"><span class="pre">artifactLocation</span></code> will contain the <code class="docutils literal notranslate"><span class="pre">uri</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code> properties.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">artifacts</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>An array containing at least one artifact object for every file referenced in a result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">results</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">newLineSequences</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">columnKind</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">properties</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>The properties dictionary will contain the <code class="docutils literal notranslate"><span class="pre">semmle.formatSpecifier</span></code>, which identifies the format specifier passed to the CodeQL CLI.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tool-object">
+<h3><code class="docutils literal notranslate"><span class="pre">tool</span></code> object<a class="headerlink" href="#tool-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">driver</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="toolcomponent-object">
+<h3><code class="docutils literal notranslate"><span class="pre">toolComponent</span></code> object<a class="headerlink" href="#toolcomponent-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Set to “CodeQL command-line toolchain” for output from the CodeQL CLI tools. Note, if the output was generated using a different tool a different <code class="docutils literal notranslate"><span class="pre">name</span></code> is reported, and the format may not be as described here.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">organization</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Set to “GitHub”.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Set to the CodeQL release version e.g. “2.0.0”.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rules</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>An array of <code class="docutils literal notranslate"><span class="pre">reportingDescriptor</span></code> objects that represent rules. This array will contain, at a minimum, all the rules that were run during this analysis, but may contain rules which were available but not run. For more detail about enabling queries, see <code class="docutils literal notranslate"><span class="pre">defaultConfiguration</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reportingdescriptor-object-for-rule">
+<h3><code class="docutils literal notranslate"><span class="pre">reportingDescriptor</span></code> object (for rule)<a class="headerlink" href="#reportingdescriptor-object-for-rule" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">reportingDescriptor</span></code> objects may be used in multiple places in the SARIF specification. When a <code class="docutils literal notranslate"><span class="pre">reportingDescriptor</span></code> is included in the rules array of a <code class="docutils literal notranslate"><span class="pre">toolComponent</span></code> object it has the following properties.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Will contain the <code class="docutils literal notranslate"><span class="pre">&#64;id</span></code> property specified in the query that defines the rule, which is usually of the format <code class="docutils literal notranslate"><span class="pre">language/rule-name</span></code> (for example <code class="docutils literal notranslate"><span class="pre">cpp/unsafe-format-string</span></code>). If your organization defines the <code class="docutils literal notranslate"><span class="pre">&#64;opaqueid</span></code> property in the query it will be used instead.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Will contain the <code class="docutils literal notranslate"><span class="pre">&#64;id</span></code> property specified in the query. See the <code class="docutils literal notranslate"><span class="pre">id</span></code> property above for an example.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">shortDescription</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Will contain the <code class="docutils literal notranslate"><span class="pre">&#64;name</span></code> property specified in the query that defines the rule.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fullDescription</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>Will contain the <code class="docutils literal notranslate"><span class="pre">&#64;description</span></code> property specified in the query that defines the rule.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">defaultConfiguration</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">reportingConfiguration</span></code> object, with the enabled property set to true or false, and a level property set according to the <code class="docutils literal notranslate"><span class="pre">&#64;severity</span></code> property specified in the query that defines the rule. Omitted if the <code class="docutils literal notranslate"><span class="pre">&#64;severity</span></code> property was not specified.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="artifact-object">
+<h3><code class="docutils literal notranslate"><span class="pre">artifact</span></code> object<a class="headerlink" href="#artifact-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>An <code class="docutils literal notranslate"><span class="pre">artifactLocation</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>The index of the <code class="docutils literal notranslate"><span class="pre">artifact</span></code> object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contents</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>If results are generated using the <code class="docutils literal notranslate"><span class="pre">--sarif-add-file-contents</span></code> flag, and the source code is available at the time the SARIF file is generated, then the <code class="docutils literal notranslate"><span class="pre">contents</span></code> property is populated with an <code class="docutils literal notranslate"><span class="pre">artifactContent</span></code> object, with the <code class="docutils literal notranslate"><span class="pre">text</span></code> property set.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="artifactlocation-object">
+<h3><code class="docutils literal notranslate"><span class="pre">artifactLocation</span></code> object<a class="headerlink" href="#artifactlocation-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uri</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uriBaseId</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>If the file is relative to some known abstract location, such as the root source location on the analysis machine, this will be set.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="result-object">
+<h3><code class="docutils literal notranslate"><span class="pre">result</span></code> object<a class="headerlink" href="#result-object" title="Link to this heading">¶</a></h3>
+<p>The composition of the results is dependent on the options provided to CodeQL.
+By default, the results are grouped by unique message format string and
+primary location. Thus, two results that occur at the same location with the
+same underlying message, will appear as a single result in the output. This
+behavior can be disabled by using the flag <code class="docutils literal notranslate"><span class="pre">--ungroup-results</span></code>, in which case
+no results are grouped.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ruleId</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>See the description of the <code class="docutils literal notranslate"><span class="pre">id</span></code> property in <code class="docutils literal notranslate"><span class="pre">reportingDescriptor</span></code> object (for rule) .</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ruleIndex</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">message</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>A message describing the problem(s) occurring at this location. This message may be a SARIF “Message with placeholder”, containing links that refer to locations in the <code class="docutils literal notranslate"><span class="pre">relatedLocations</span></code> property.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">locations</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>An array containing a single <code class="docutils literal notranslate"><span class="pre">location</span></code> object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partialFingerprints</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>A dictionary from named fingerprint types to the fingerprint. This will contain, at a minimum, a value for the <code class="docutils literal notranslate"><span class="pre">primaryLocationLineHash</span></code>, which provides a fingerprint based on the context of the primary location.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">codeFlows</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>This array may be populated with one or more <code class="docutils literal notranslate"><span class="pre">codeFlow</span></code> objects if the query that defines the rule for this result is of <code class="docutils literal notranslate"><span class="pre">&#64;kind</span> <span class="pre">path-problem</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">relatedLocations</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>This array will be populated if the query that defines the rule for this result has a message with placeholder options. Each unique location is included once.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">suppressions</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>If the result is suppressed, then this will contain a single <code class="docutils literal notranslate"><span class="pre">suppression</span></code> object, with the <code class="docutils literal notranslate"><span class="pre">&#64;kind</span></code> property set to <code class="docutils literal notranslate"><span class="pre">IN_SOURCE</span></code>. If this result is not suppressed, but there is at least one result that has a suppression, then this will be set to an empty array, otherwise it will not be set.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="location-object">
+<h3><code class="docutils literal notranslate"><span class="pre">location</span></code> object<a class="headerlink" href="#location-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">physicalLocation</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">location</span></code> objects that appear in the <code class="docutils literal notranslate"><span class="pre">relatedLocations</span></code> array of a <code class="docutils literal notranslate"><span class="pre">result</span></code> object may contain the <code class="docutils literal notranslate"><span class="pre">id</span></code> property.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">message</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">location</span></code> objects may contain the <code class="docutils literal notranslate"><span class="pre">message</span></code> property if:</p>
+<ul class="simple">
+<li><p>They appear in the <code class="docutils literal notranslate"><span class="pre">relatedLocations</span></code> array of a <code class="docutils literal notranslate"><span class="pre">result</span></code> object may contain the <code class="docutils literal notranslate"><span class="pre">message</span></code> property.</p></li>
+<li><p>They appear in the <code class="docutils literal notranslate"><span class="pre">threadFlowLocation.location</span></code> property.</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="physicallocation-object">
+<h3><code class="docutils literal notranslate"><span class="pre">physicalLocation</span></code> object<a class="headerlink" href="#physicallocation-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">artifactLocation</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">region</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>If the given <code class="docutils literal notranslate"><span class="pre">physicalLocation</span></code> exists in a text file, such as a source code file, then the <code class="docutils literal notranslate"><span class="pre">region</span></code> property may be present.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contextRegion</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>May be present if this location has an associated <code class="docutils literal notranslate"><span class="pre">snippet</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="region-object">
+<h3><code class="docutils literal notranslate"><span class="pre">region</span></code> object<a class="headerlink" href="#region-object" title="Link to this heading">¶</a></h3>
+<p>There are two types of <code class="docutils literal notranslate"><span class="pre">region</span></code> object produced by CodeQL:</p>
+<ul class="simple">
+<li><p>Line/column offset regions</p></li>
+<li><p>Character offset and length regions</p></li>
+</ul>
+<p>Any region produced by CodeQL may be specified in either format, and consumers
+should robustly handle either type.</p>
+<p>For line/column offset regions, the following properties will be set:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">startLine</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">startColumn</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>Not included if equal to the default value of 1.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">endLine</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>Not included if identical to <code class="docutils literal notranslate"><span class="pre">startLine</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">endColumn</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">snippet</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+<p>For character offset and length regions, the following properties will be set:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">charOffset</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>Provided if <code class="docutils literal notranslate"><span class="pre">startLine</span></code>, <code class="docutils literal notranslate"><span class="pre">startColumn</span></code>, <code class="docutils literal notranslate"><span class="pre">endLine</span></code>, and <code class="docutils literal notranslate"><span class="pre">endColumn</span></code> are not populated.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">charLength</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>Provided if <code class="docutils literal notranslate"><span class="pre">startLine</span></code>, <code class="docutils literal notranslate"><span class="pre">startColumn</span></code>, <code class="docutils literal notranslate"><span class="pre">endLine</span></code>, and <code class="docutils literal notranslate"><span class="pre">endColumn</span></code> are not populated.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">snippet</span></code></p></td>
+<td><p>Optionally</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="codeflow-object">
+<h3><code class="docutils literal notranslate"><span class="pre">codeFlow</span></code> object<a class="headerlink" href="#codeflow-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">threadFlows</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="threadflow-object">
+<h3><code class="docutils literal notranslate"><span class="pre">threadFlow</span></code> object<a class="headerlink" href="#threadflow-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">locations</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="threadflowlocation-object">
+<h3><code class="docutils literal notranslate"><span class="pre">threadFlowLocation</span></code> object<a class="headerlink" href="#threadflowlocation-object" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>JSON property name</p></th>
+<th class="head"><p>When is this generated?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">location</span></code></p></td>
+<td><p>Always</p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+    </article>
+
+    <!-- GitHub footer, with links to terms and privacy statement -->
+    <div class="px-3 px-md-6 f6 py-4 d-sm-flex flex-justify-between flex-row-reverse flex-items-center border-top">
+        <ul class="list-style-none d-flex flex-items-center mb-3 mb-sm-0 lh-condensed-ultra">
+            <li class="mr-3">
+                <a href="https://twitter.com/github" title="GitHub on Twitter" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3" class="d-block" height="18">
+                        <path
+                            d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.facebook.com/GitHub" title="GitHub on Facebook" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.3 15.4" class="d-block" height="18">
+                        <path
+                            d="M14.5 0H.8a.88.88 0 0 0-.8.9v13.6a.88.88 0 0 0 .8.9h7.3v-6h-2V7.1h2V5.4a2.87 2.87 0 0 1 2.5-3.1h.5a10.87 10.87 0 0 1 1.8.1v2.1h-1.3c-1 0-1.1.5-1.1 1.1v1.5h2.3l-.3 2.3h-2v5.9h3.9a.88.88 0 0 0 .9-.8V.8a.86.86 0 0 0-.8-.8z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.youtube.com/github" title="GitHub on YouTube" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 13.6" class="d-block" height="16">
+                        <path
+                            d="M18.77 2.13A2.4 2.4 0 0 0 17.09.42C15.59 0 9.58 0 9.58 0a57.55 57.55 0 0 0-7.5.4A2.49 2.49 0 0 0 .39 2.13 26.27 26.27 0 0 0 0 6.8a26.15 26.15 0 0 0 .39 4.67 2.43 2.43 0 0 0 1.69 1.71c1.52.42 7.5.42 7.5.42a57.69 57.69 0 0 0 7.51-.4 2.4 2.4 0 0 0 1.68-1.71 25.63 25.63 0 0 0 .4-4.67 24 24 0 0 0-.4-4.69zM7.67 9.71V3.89l5 2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3 flex-self-start">
+                <a href="https://www.linkedin.com/company/github" title="GitHub on Linkedin" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18" class="d-block" height="18">
+                        <path
+                            d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/github" title="GitHub's organization" style="color: #959da5;">
+                    <svg version="1.1" width="20" height="20" viewBox="0 0 16 16" class="octicon octicon-mark-github"
+                        aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-style-none d-flex text-gray">
+            <li class="mr-3">&copy; 
+                <script type="text/javascript">document.write(new Date().getFullYear());</script> GitHub, Inc.</li>
+            <li class="mr-3"><a
+                    href="https://docs.github.com/github/site-policy/github-terms-of-service"
+                    class="link-gray">Terms </a></li>
+            <li><a href="https://docs.github.com/github/site-policy/github-privacy-statement"
+                    class="link-gray">Privacy </a></li>
+        </ul>
+    </div>
+</div>
+</main>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".toggle > *").hide();
+        $(".toggle .name").show();
+        $(".toggle .name").click(function () {
+            $(this).parent().children().not(".name").toggle(400);
+            $(this).parent().children(".name").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

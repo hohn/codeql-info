@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Creating CodeQL query suites &#8212; CodeQL</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=93459777" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing custom queries" href="testing-custom-queries.html" />
+    <link rel="prev" title="Using custom queries with the CodeQL CLI" href="using-custom-queries-with-the-codeql-cli.html" />
+
+<title>CodeQL docs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+<link rel="stylesheet" href="../_static/primer.css" type="text/css" />
+
+
+  </head><body>
+<header class="Header">
+    <div class="Header-item--full">
+        <a href="https://codeql.github.com/docs" class="Header-link f2 d-flex flex-items-center">
+            <!-- <%= octicon "mark-github", class: "mr-2", height: 32 %> -->
+            <svg height="32" class="octicon octicon-mark-github mr-2" viewBox="0 0 16 16" version="1.1" width="32"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+            <span class="hide-sm">CodeQL documentation</span>
+        </a>
+    </div>
+    <div class="Header-item hide-sm hide-md">
+        <script src="https://addsearch.com/js/?key=93b4d287e2fc079a4089412b669785d5&categories=!0xhelp.semmle.com,0xcodeql.github.com,1xdocs,1xcodeql-standard-libraries,1xcodeql-query-help"></script>
+    </div>
+    <div class="Header-item">
+
+        <details class="dropdown details-reset details-overlay d-inline-block">
+            <summary class="btn bg-gray-dark text-white border" aria-haspopup="true">
+                CodeQL resources
+                <div class="dropdown-caret"></div>
+            </summary>
+
+            <ul class="dropdown-menu dropdown-menu-se dropdown-menu-dark">
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-overview">CodeQL overview</a></li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL tools
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-for-visual-studio-code">CodeQL for VS Code</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-cli">CodeQL CLI</a>
+                </li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL guides
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/writing-codeql-queries">Writing CodeQL queries</a></li>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-language-guides">CodeQL language guides</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Reference docs
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/ql-language-reference/">QL language
+                        reference</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-standard-libraries">CodeQL
+                        standard-libraries</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-query-help">CodeQL
+                        query help</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Source files
+                </div>
+                <li><a class="dropdown-item" href="https://github.com/github/codeql">CodeQL repository</a>
+            </ul>
+        </details>
+
+    </div>
+
+</header>
+<main class="bg-gray-light clearfix">
+<nav class="SideNav position-sticky top-0 col-lg-3 col-md-3 float-left p-4 hide-sm hide-md overflow-y-auto">
+
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../codeql-overview/index.html">CodeQL overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-for-visual-studio-code/index.html">CodeQL for Visual Studio Code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CodeQL CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="using-the-codeql-cli.html">Using the CodeQL CLI</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="about-the-codeql-cli.html">About the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started-with-the-codeql-cli.html">Getting started with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-databases.html">Creating CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extractor-options.html">Extractor options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="analyzing-databases-with-the-codeql-cli.html">Analyzing databases with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrading-codeql-databases.html">Upgrading CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html">Using custom queries with the CodeQL CLI</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Creating CodeQL query suites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-custom-queries.html">Testing custom queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-query-help-files.html">Testing query help files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-and-working-with-codeql-packs.html">Creating and working with CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="publishing-and-using-codeql-packs.html">Publishing and using CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifying-command-options-in-a-codeql-configuration-file.html">Specifying command options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="codeql-cli-reference.html">CodeQL CLI reference</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://codeql.github.com/docs/codeql-cli/manual">CodeQL CLI manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../writing-codeql-queries/index.html">Writing CodeQL queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-language-guides/index.html">CodeQL language guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ql-language-reference/index.html">QL language reference</a></li>
+</ul>
+
+
+</nav>
+
+
+<div class="body col-sm-12 col-md-9 col-lg-9 float-left border-left">
+
+    <div class="hide-lg hide-xl px-4 pt-4">
+        
+<div class="related" role="navigation" aria-label="related navigation">
+    <ul>
+        <li class="nav-item nav-item-0"><a href="../contents.html">CodeQL</a> &#187;</li>
+        <li class="nav-item nav-item-1"><a href="index.html"
+                >CodeQL CLI</a> &#187;</li>
+        <li class="nav-item nav-item-2"><a href="using-the-codeql-cli.html"
+                accesskey="U">Using the CodeQL CLI</a> &#187;</li> 
+    </ul>
+</div>
+    </div>
+
+    <article class="p-4 col-lg-10 col-md-10 col-sm-12">
+        
+  <section id="creating-codeql-query-suites">
+<span id="id1"></span><h1>Creating CodeQL query suites<a class="headerlink" href="#creating-codeql-query-suites" title="Link to this heading">¶</a></h1>
+<p>CodeQL query suites provide a way of selecting queries, based on their
+filename, location on disk or in a QL pack, or metadata properties.
+Create query suites for the queries that you want to frequently use in
+your CodeQL analyses.</p>
+<p>Query suites allow you to pass multiple queries to
+CodeQL without having to specify the path to each query file individually.
+Query suite definitions are stored in YAML files with the extension <code class="docutils literal notranslate"><span class="pre">.qls</span></code>. A
+suite definition is a sequence of instructions, where each instruction is a YAML
+mapping with (usually) a single key. The instructions are executed in the order
+they appear in the query suite definition. After all the instructions in the
+suite definition have been executed, the result is a set of selected queries.</p>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>Any custom queries that you want to add to a query suite must be in a <a class="reference internal" href="about-ql-packs.html"><span class="doc">QL
+pack</span></a> and contain the correct query metadata.
+For more information, see
+“<a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html"><span class="doc">Using custom queries with the CodeQL CLI</span></a>.”</p>
+</div></blockquote>
+<section id="locating-queries-to-add-to-a-query-suite">
+<h2>Locating queries to add to a query suite<a class="headerlink" href="#locating-queries-to-add-to-a-query-suite" title="Link to this heading">¶</a></h2>
+<p>When creating a query suite, you first need to specify the locations of the
+queries that you want to select. You can define the location of one or more
+queries using:</p>
+<ul>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">query</span></code> instruction—tells CodeQL to look for one or more specified <code class="docutils literal notranslate"><span class="pre">.ql</span></code>
+files:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- query: &lt;path-to-query&gt;
+</pre></div>
+</div>
+<p>The argument must be one or more file paths, relative to the QL pack containing
+the suite definition.</p>
+</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">queries</span></code> instruction—tells CodeQL to recursively scan a directory
+for <code class="docutils literal notranslate"><span class="pre">.ql</span></code> files:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- queries: &lt;path-to-subdirectory&gt;
+</pre></div>
+</div>
+<p>The path of the directory must be relative to the root of the QL pack that
+contains the suite definition file. To find the queries relative to a
+different QL pack, add a <code class="docutils literal notranslate"><span class="pre">from</span></code> field:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- queries: &lt;path-to-subdirectory&gt;
+  from: &lt;ql-pack-name&gt;
+</pre></div>
+</div>
+</li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">qlpack</span></code> instruction—tells CodeQL to resolve queries in the default suite of the
+named QL pack:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- qlpack: &lt;qlpack-name&gt;
+</pre></div>
+</div>
+<p>The default suite of a query pack includes a recommended set of queries
+inside of that query pack. Not all query packs have a default suite. If the given query pack does not
+define a default suite, the <cite>qlpack</cite> instruction will resolve to all of the queries within the pack.</p>
+</li>
+</ul>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>When pathnames appear in query suite definitions, they must always
+be given with a forward slash, <code class="docutils literal notranslate"><span class="pre">/</span></code>, as a directory separator.
+This ensures that query suite definitions work on all operating systems.</p>
+</div></blockquote>
+<p>You must add at least one <code class="docutils literal notranslate"><span class="pre">query</span></code>, <code class="docutils literal notranslate"><span class="pre">queries</span></code>, or <code class="docutils literal notranslate"><span class="pre">qlpack</span></code> instruction to
+your suite definition, otherwise no queries will be selected. If the suite
+contains no further instructions, all the queries found from the list of files,
+in the given directory, or in the named QL pack are selected. If there are further
+filtering instructions, only queries that match the constraints imposed by those
+instructions will be selected.</p>
+</section>
+<section id="filtering-the-queries-in-a-query-suite">
+<h2>Filtering the queries in a query suite<a class="headerlink" href="#filtering-the-queries-in-a-query-suite" title="Link to this heading">¶</a></h2>
+<p>After you have defined the initial set of queries to add to your suite by
+specifying <code class="docutils literal notranslate"><span class="pre">query</span></code>, <code class="docutils literal notranslate"><span class="pre">queries</span></code>, or <code class="docutils literal notranslate"><span class="pre">qlpack</span></code> instructions, you can add
+<code class="docutils literal notranslate"><span class="pre">include</span></code> and <code class="docutils literal notranslate"><span class="pre">exclude</span></code> instructions. These instructions define selection
+criteria based on specific properties:</p>
+<ul class="simple">
+<li><p>When you execute an <code class="docutils literal notranslate"><span class="pre">include</span></code> instruction on a set of queries, any
+queries that match your conditions are retained in the selection, and queries
+that don’t match are removed.</p></li>
+<li><p>When you execute an <code class="docutils literal notranslate"><span class="pre">exclude</span></code> instructions on a set of queries,
+any queries that match your conditions are removed from the selection, and queries
+that don’t match are retained.</p></li>
+</ul>
+<p>The order of your filter instructions is important. The first filter instruction
+that appears after the locating instructions determines whether the queries are
+included or excluded by default. If the first filter is an <code class="docutils literal notranslate"><span class="pre">include</span></code>, the
+initially located queries will only be part of the suite if they match an
+explicit <code class="docutils literal notranslate"><span class="pre">include</span></code> filter. If the first filter is an <code class="docutils literal notranslate"><span class="pre">exclude</span></code>, the initially
+located queries are part of the suite unless they are explicitly excluded.</p>
+<p>Subsequent instructions are executed in order and the instructions that appear
+later in the file take precedence over the earlier instructions. So, <code class="docutils literal notranslate"><span class="pre">include</span></code>
+instructions can be overridden by a later <code class="docutils literal notranslate"><span class="pre">exclude</span></code> instructions that match
+the same query. Similarly, <code class="docutils literal notranslate"><span class="pre">exclude</span></code>s can be overridden by a later
+<code class="docutils literal notranslate"><span class="pre">include</span></code>.</p>
+<p>For both instructions, the argument is a constraint block—that is, a YAML map
+representing the constraints. Each constraint is a map entry, where the key is
+typically a query metadata property. The value can be:</p>
+<ul class="simple">
+<li><p>A single string.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">/</span></code>-enclosed <a class="reference external" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/regex/Pattern.html">regular expression</a>.</p></li>
+<li><p>A list containing strings, regular expressions, or both.</p></li>
+</ul>
+<p>To match a constraint, a metadata value must match one of the strings or
+regular expressions. When there is more than one metadata key, each key must be matched.
+For more information about query metadata properties, see “<a class="reference internal" href="../writing-codeql-queries/metadata-for-codeql-queries.html#metadata-for-codeql-queries"><span class="std std-ref">Metadata for CodeQL queries</span></a>.”</p>
+<p>In addition to metadata tags, the keys in the constraint block can also be:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span> <span class="pre">filename</span></code>—matches on the last path component of the query file name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span> <span class="pre">path</span></code>—matches on the path to the query file relative to its
+enclosing QL pack.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tags</span> <span class="pre">contain</span></code>—one of the given match strings must match
+one of the space-separated components of the value of the <code class="docutils literal notranslate"><span class="pre">&#64;tags</span></code> metadata property.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tags</span> <span class="pre">contain</span> <span class="pre">all</span></code>—each of the given match strings must match one of the
+components of the <code class="docutils literal notranslate"><span class="pre">&#64;tags</span></code> metadata property.</p></li>
+</ul>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h3>
+<p>To define a suite that selects all queries in the default suite of the
+<code class="docutils literal notranslate"><span class="pre">codeql/cpp-queries</span></code> QL pack, and then refines them to only include
+security queries, use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- qlpack: codeql/cpp-queries
+- include:
+    tags contain: security
+</pre></div>
+</div>
+<p>To define a suite that selects all queries with <code class="docutils literal notranslate"><span class="pre">&#64;kind</span> <span class="pre">problem</span></code>
+and <code class="docutils literal notranslate"><span class="pre">&#64;precision</span> <span class="pre">high</span></code> from the <code class="docutils literal notranslate"><span class="pre">my-custom-queries</span></code> directory, use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- queries: my-custom-queries
+- include:
+    kind: problem
+    precision: very-high
+</pre></div>
+</div>
+<p>To create a suite that selects all queries with <code class="docutils literal notranslate"><span class="pre">&#64;kind</span> <span class="pre">problem</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">my-custom-queries</span></code> directory except those with <code class="docutils literal notranslate"><span class="pre">&#64;problem.severity</span>
+<span class="pre">recommendation</span></code>, use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- queries: my-custom-queries
+- include:
+    kind: problem
+- exclude:
+    problem.severity: recommendation
+</pre></div>
+</div>
+<p>To create a suite that selects all queries with <code class="docutils literal notranslate"><span class="pre">&#64;tag</span> <span class="pre">security</span></code> and
+<code class="docutils literal notranslate"><span class="pre">&#64;problem.severity</span> <span class="pre">high</span></code> or <code class="docutils literal notranslate"><span class="pre">very-high</span></code> from the <code class="docutils literal notranslate"><span class="pre">codeql/cpp-queries</span></code> QL pack,
+use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- queries: .
+  from: codeql/cpp-queries
+- include:
+    tags contain: security
+    problem.severity:
+    - high
+    - very-high
+</pre></div>
+</div>
+</section>
+</section>
+<section id="reusing-existing-query-suite-definitions">
+<h2>Reusing existing query suite definitions<a class="headerlink" href="#reusing-existing-query-suite-definitions" title="Link to this heading">¶</a></h2>
+<p>Existing query suite definitions can be reused by specifying:</p>
+<ul>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">import</span></code> instruction—adds the queries selected by a
+previously defined <code class="docutils literal notranslate"><span class="pre">.qls</span></code> file to the current suite:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- import: &lt;path-to-query-suite&gt;
+</pre></div>
+</div>
+<p>The path to the imported suite must be relative to the QL pack containing the
+current suite definition. If the imported query suite is in a different QL
+pack you can use:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- import: &lt;path-to-query-suite&gt;
+  from: &lt;ql-pack&gt;
+</pre></div>
+</div>
+<p>Queries added using an <code class="docutils literal notranslate"><span class="pre">import</span></code> instruction can be filtered using subsequent
+<code class="docutils literal notranslate"><span class="pre">exclude</span></code> instructions.</p>
+</li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">apply</span></code> instruction—adds all of the instructions from a
+previously defined <code class="docutils literal notranslate"><span class="pre">.qls</span></code> file to the current suite. The instructions in the
+applied <code class="docutils literal notranslate"><span class="pre">.qls</span></code> file are executed as if they appear in place of <code class="docutils literal notranslate"><span class="pre">apply</span></code>.
+Any <code class="docutils literal notranslate"><span class="pre">include</span></code> and <code class="docutils literal notranslate"><span class="pre">exclude</span></code> instructions from the applied suite also act on
+queries added by any earlier instructions:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- apply: &lt;path-to-query-suite&gt;
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">apply</span></code> instruction can also be used to apply a set of reusable
+conditions, saved in a <code class="docutils literal notranslate"><span class="pre">.yml</span></code> file, to multiple query definitions. For more
+information, see the <a class="reference external" href="#example">example</a> below.</p>
+</li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">eval</span></code> instruction—performs the same function as an <code class="docutils literal notranslate"><span class="pre">import</span></code>
+instruction, but takes a full suite definition as the argument, rather than the
+path to a <code class="docutils literal notranslate"><span class="pre">.qls</span></code> file on disk.</p></li>
+</ul>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h3>
+<p>To use the same conditions in multiple query suite definitions, create a
+separate <code class="docutils literal notranslate"><span class="pre">.yml</span></code> file containing your instructions. For example, save the
+following in a file called <code class="docutils literal notranslate"><span class="pre">reusable-instructions.yml</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- include:
+    kind:
+    - problem
+    - path-problem
+    tags contain: security
+    precision:
+    - high
+    - very-high
+</pre></div>
+</div>
+<p>Add <code class="docutils literal notranslate"><span class="pre">reusable-instructions.yml</span></code> to the same QL pack as your current query
+suite (for example, <code class="docutils literal notranslate"><span class="pre">my-custom-queries</span></code>). Apply the reusable instructions
+to the queries in your current suite using:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- qlpack: my-custom-queries
+- apply: reusable-instructions.yml
+</pre></div>
+</div>
+<p>To apply the same conditions to a different suite or directory within the same
+QL pack, create a new definition and change (or replace) the <code class="docutils literal notranslate"><span class="pre">qlpack</span></code>
+instruction. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- queries: queries/cpp/custom
+- apply: reusable-instructions.yml
+</pre></div>
+</div>
+<p>You can also create a suite definition using <code class="docutils literal notranslate"><span class="pre">reusable-instructions.yml</span></code> on
+queries in a different QL pack. If the <code class="docutils literal notranslate"><span class="pre">.qls</span></code> file is in the same QL pack as
+the queries, you can add a <code class="docutils literal notranslate"><span class="pre">from</span></code> field immediately after the <code class="docutils literal notranslate"><span class="pre">apply</span></code>
+instruction:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- qlpack: my-other-custom-queries
+- apply: reusable-instructions.yml
+  from: &lt;name-of-ql-pack&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="naming-a-query-suite">
+<h2>Naming a query suite<a class="headerlink" href="#naming-a-query-suite" title="Link to this heading">¶</a></h2>
+<p>You can provide a name for your query suite by specifying a <code class="docutils literal notranslate"><span class="pre">description</span></code>
+instruction:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- description: &lt;name-of-query-suite&gt;
+</pre></div>
+</div>
+<p>This value is displayed when you run <a class="reference external" href="../manual/resolve-queries">codeql resolve queries</a>, if the suite is added to a “well-known”
+directory. For more information, see “<a class="reference external" href="#specifying-well-known-query-suites">Specifying well-known query suites</a>.”</p>
+</section>
+<section id="saving-a-query-suite">
+<h2>Saving a query suite<a class="headerlink" href="#saving-a-query-suite" title="Link to this heading">¶</a></h2>
+<p>Save your query suite in a file with a <code class="docutils literal notranslate"><span class="pre">.qls</span></code> extension and add it to a QL
+pack. For more information, see “<a class="reference internal" href="about-ql-packs.html#custom-ql-packs"><span class="std std-ref">About QL packs</span></a>.”</p>
+</section>
+<section id="specifying-well-known-query-suites">
+<h2>Specifying well-known query suites<a class="headerlink" href="#specifying-well-known-query-suites" title="Link to this heading">¶</a></h2>
+<p>You can use QL packs to declare directories that contain “well-known” query
+suites. You can use “well-known” query suites on the command line by referring
+to their file name,
+without providing their full path. This gives you a simple way of specifying a
+set of queries, without needing to search inside QL packs and distributions.
+To declare a directory that contains “well-known” query suites, add the directory
+to the <code class="docutils literal notranslate"><span class="pre">suites</span></code> property in the <code class="docutils literal notranslate"><span class="pre">qlpack.yml</span></code> file at the root of your QL pack.
+For more information, see “<a class="reference internal" href="about-ql-packs.html#qlpack-yml-properties"><span class="std std-ref">About QL packs</span></a>.”</p>
+</section>
+<section id="using-query-suites-with-codeql">
+<h2>Using query suites with CodeQL<a class="headerlink" href="#using-query-suites-with-codeql" title="Link to this heading">¶</a></h2>
+<p>You can specify query suites on the command line for any command that accepts
+<code class="docutils literal notranslate"><span class="pre">.qls</span></code> files. For example, you can compile the queries selected by a suite
+definition using <code class="docutils literal notranslate"><span class="pre">query</span> <span class="pre">compile</span></code>, or use the queries in an analysis using
+<code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code>. For more information about analyzing CodeQL databases, see
+“<a class="reference internal" href="analyzing-databases-with-the-codeql-cli.html"><span class="doc">Analyzing databases with the CodeQL CLI</span></a>.”</p>
+</section>
+<section id="viewing-the-query-suites-used-on-lgtm-com">
+<h2>Viewing the query suites used on LGTM.com<a class="headerlink" href="#viewing-the-query-suites-used-on-lgtm-com" title="Link to this heading">¶</a></h2>
+<p>The query suite definitions used to select queries to run on LGTM.com can be
+found in the CodeQL repository. For example, to view the CodeQL queries for
+JavaScript, visit
+<a class="reference external" href="https://github.com/github/codeql/tree/main/javascript/ql/src/codeql-suites">https://github.com/github/codeql/tree/main/javascript/ql/src/codeql-suites</a>.</p>
+<p>These suite definitions apply reusable filter patterns to the queries
+located in the standard QL packs for each supported language. For more
+information, see the <a class="reference external" href="https://github.com/github/codeql/tree/main/misc/suite-helpers">suite-helpers</a> in the CodeQL
+repository.</p>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>“<a class="reference internal" href="../writing-codeql-queries/codeql-queries.html#codeql-queries"><span class="std std-ref">CodeQL queries</span></a>”</p></li>
+</ul>
+</section>
+</section>
+
+
+    </article>
+
+    <!-- GitHub footer, with links to terms and privacy statement -->
+    <div class="px-3 px-md-6 f6 py-4 d-sm-flex flex-justify-between flex-row-reverse flex-items-center border-top">
+        <ul class="list-style-none d-flex flex-items-center mb-3 mb-sm-0 lh-condensed-ultra">
+            <li class="mr-3">
+                <a href="https://twitter.com/github" title="GitHub on Twitter" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3" class="d-block" height="18">
+                        <path
+                            d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.facebook.com/GitHub" title="GitHub on Facebook" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.3 15.4" class="d-block" height="18">
+                        <path
+                            d="M14.5 0H.8a.88.88 0 0 0-.8.9v13.6a.88.88 0 0 0 .8.9h7.3v-6h-2V7.1h2V5.4a2.87 2.87 0 0 1 2.5-3.1h.5a10.87 10.87 0 0 1 1.8.1v2.1h-1.3c-1 0-1.1.5-1.1 1.1v1.5h2.3l-.3 2.3h-2v5.9h3.9a.88.88 0 0 0 .9-.8V.8a.86.86 0 0 0-.8-.8z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.youtube.com/github" title="GitHub on YouTube" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 13.6" class="d-block" height="16">
+                        <path
+                            d="M18.77 2.13A2.4 2.4 0 0 0 17.09.42C15.59 0 9.58 0 9.58 0a57.55 57.55 0 0 0-7.5.4A2.49 2.49 0 0 0 .39 2.13 26.27 26.27 0 0 0 0 6.8a26.15 26.15 0 0 0 .39 4.67 2.43 2.43 0 0 0 1.69 1.71c1.52.42 7.5.42 7.5.42a57.69 57.69 0 0 0 7.51-.4 2.4 2.4 0 0 0 1.68-1.71 25.63 25.63 0 0 0 .4-4.67 24 24 0 0 0-.4-4.69zM7.67 9.71V3.89l5 2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3 flex-self-start">
+                <a href="https://www.linkedin.com/company/github" title="GitHub on Linkedin" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18" class="d-block" height="18">
+                        <path
+                            d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/github" title="GitHub's organization" style="color: #959da5;">
+                    <svg version="1.1" width="20" height="20" viewBox="0 0 16 16" class="octicon octicon-mark-github"
+                        aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-style-none d-flex text-gray">
+            <li class="mr-3">&copy; 
+                <script type="text/javascript">document.write(new Date().getFullYear());</script> GitHub, Inc.</li>
+            <li class="mr-3"><a
+                    href="https://docs.github.com/github/site-policy/github-terms-of-service"
+                    class="link-gray">Terms </a></li>
+            <li><a href="https://docs.github.com/github/site-policy/github-privacy-statement"
+                    class="link-gray">Privacy </a></li>
+        </ul>
+    </div>
+</div>
+</main>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".toggle > *").hide();
+        $(".toggle .name").show();
+        $(".toggle .name").click(function () {
+            $(this).parent().children().not(".name").toggle(400);
+            $(this).parent().children(".name").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

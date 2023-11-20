@@ -21,20 +21,90 @@
 
   #+BEGIN_SRC sh
     # Clone the codeql library
-    cd ~/local/vmsync
+    mkdir -p ~/local/0ec126bc
+    cd ~/local/0ec126bc
     git clone https://github.com/github/codeql ql
 
     # Install prerequisites
-    pip install -U sphinx==1.7.9
+    # Igore the docs, try python 3 and new version of docutils.
+    pip install docutils
+    pip install -U sphinx
 
-    # Build the html documentation 
-    cd ~/local/vmsync/ql/docs/language/learn-ql/
+    # Patch
+    git patch << EOF
+    diff --git a/docs/codeql/conf.py b/docs/codeql/conf.py
+    index da8b911402..3ff626bceb 100644
+    --- a/docs/codeql/conf.py
+    +++ b/docs/codeql/conf.py
+    @@ -51,8 +51,8 @@ import sys
+ 
+     def setup(sphinx):
+         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))	
+    -    from qllexer import QLLexer
+    -    sphinx.add_lexer("ql", QLLexer())
+    +    # from qllexer import QLLexer
+    +    # sphinx.add_lexer("ql", QLLexer())
+ 
+     # The version of CodeQL for the current release you're documenting, acts as replacement for
+     # |version| and |release|. Not currently used.
+    diff --git a/docs/codeql/ql-training/conf.py b/docs/codeql/ql-training/conf.py
+    index 1c36b806de..a9ed0d0429 100644
+    --- a/docs/codeql/ql-training/conf.py
+    +++ b/docs/codeql/ql-training/conf.py
+    @@ -48,8 +48,8 @@ import os
+ 
+     def setup(sphinx):
+         sys.path.insert(0, os.path.join(os.path.dirname(__file__), os.path.pardir))
+    -    from qllexer import QLLexer
+    -    sphinx.add_lexer("ql", QLLexer())
+    +    # from qllexer import QLLexer
+    +    # sphinx.add_lexer("ql", QLLexer())
+ 
+     # Set QL as the default language for highlighting code. Set to none to disable 
+     # syntax highlighting. If omitted or left blank, it defaults to Python 3. 
+    @@ -122,4 +122,4 @@ html_theme_options = {'font_size': '16px',
+     # Exclude the slide snippets from the build
+     exclude_patterns = ['slide-snippets']
+    EOF
+
+    #* Build the html documentation 
+    cd ~/local/0ec126bc/ql/docs/codeql/
+    # See /Users/hohn/local/0ec126bc/ql/docs/codeql/README.rst for details. 
     sphinx-build -b html . build.html
+
+    # View main index page
+    open build.html/codeql-overview/index.html
+
+    # Detail page source
+    em ./writing-codeql-queries/creating-path-queries.rst
 
     # View one of the index pages
     open build.html/codeql-language-guides/codeql-library-for-javascript.html
 
-    # Build the PDF version
+    # Find classic datflow version (class based)
+    git log -6 ./writing-codeql-queries/debugging-data-flow-queries-using-partial-flow.rst |cat
+    # commit 2947f176ef90570f854e18acee024a9dff9b8bed
+    # Author: Anders Schack-Mulligen <aschackmull@github.com>
+    # Date:   Thu Jul 13 09:21:12 2023 +0200
+    #     Docs: Update data flow documentation to the new API.
+
+    # one prior:
+    git stash save custom-conf
+    git checkout f3f2c3183
+    git stash apply stash@{0}
+
+    # and re-build
+    sphinx-build -b html . build.html
+
+    # keep a copy
+    cd ~/local/codeql-info/ql/docs/language/learn-ql/
+    cp -r ~/local/0ec126bc/ql/docs/codeql/build.html build.html-$(git rev-parse --short HEAD)
+
+    # View main index page
+    open ~/local/codeql-info/ql/docs/language/learn-ql/build.html-$(git rev-parse --short HEAD)/codeql-overview/index.html
+
+
+    #* Build the PDF version
     cd ~/local/vmsync/ql/docs/language/learn-ql/
     sphinx-build -b latex . build.latex
     cd build.latex/

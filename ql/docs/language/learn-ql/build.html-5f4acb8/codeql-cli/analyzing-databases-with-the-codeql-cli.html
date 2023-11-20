@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Analyzing databases with the CodeQL CLI &#8212; CodeQL</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=93459777" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Upgrading CodeQL databases" href="upgrading-codeql-databases.html" />
+    <link rel="prev" title="Extractor options" href="extractor-options.html" />
+
+<title>CodeQL docs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+<link rel="stylesheet" href="../_static/primer.css" type="text/css" />
+
+
+  </head><body>
+<header class="Header">
+    <div class="Header-item--full">
+        <a href="https://codeql.github.com/docs" class="Header-link f2 d-flex flex-items-center">
+            <!-- <%= octicon "mark-github", class: "mr-2", height: 32 %> -->
+            <svg height="32" class="octicon octicon-mark-github mr-2" viewBox="0 0 16 16" version="1.1" width="32"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+            <span class="hide-sm">CodeQL documentation</span>
+        </a>
+    </div>
+    <div class="Header-item hide-sm hide-md">
+        <script src="https://addsearch.com/js/?key=93b4d287e2fc079a4089412b669785d5&categories=!0xhelp.semmle.com,0xcodeql.github.com,1xdocs,1xcodeql-standard-libraries,1xcodeql-query-help"></script>
+    </div>
+    <div class="Header-item">
+
+        <details class="dropdown details-reset details-overlay d-inline-block">
+            <summary class="btn bg-gray-dark text-white border" aria-haspopup="true">
+                CodeQL resources
+                <div class="dropdown-caret"></div>
+            </summary>
+
+            <ul class="dropdown-menu dropdown-menu-se dropdown-menu-dark">
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-overview">CodeQL overview</a></li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL tools
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-for-visual-studio-code">CodeQL for VS Code</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-cli">CodeQL CLI</a>
+                </li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL guides
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/writing-codeql-queries">Writing CodeQL queries</a></li>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-language-guides">CodeQL language guides</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Reference docs
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/ql-language-reference/">QL language
+                        reference</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-standard-libraries">CodeQL
+                        standard-libraries</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-query-help">CodeQL
+                        query help</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Source files
+                </div>
+                <li><a class="dropdown-item" href="https://github.com/github/codeql">CodeQL repository</a>
+            </ul>
+        </details>
+
+    </div>
+
+</header>
+<main class="bg-gray-light clearfix">
+<nav class="SideNav position-sticky top-0 col-lg-3 col-md-3 float-left p-4 hide-sm hide-md overflow-y-auto">
+
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../codeql-overview/index.html">CodeQL overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-for-visual-studio-code/index.html">CodeQL for Visual Studio Code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CodeQL CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="using-the-codeql-cli.html">Using the CodeQL CLI</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="about-the-codeql-cli.html">About the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started-with-the-codeql-cli.html">Getting started with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-databases.html">Creating CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extractor-options.html">Extractor options</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Analyzing databases with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrading-codeql-databases.html">Upgrading CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html">Using custom queries with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-query-suites.html">Creating CodeQL query suites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-custom-queries.html">Testing custom queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-query-help-files.html">Testing query help files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-and-working-with-codeql-packs.html">Creating and working with CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="publishing-and-using-codeql-packs.html">Publishing and using CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifying-command-options-in-a-codeql-configuration-file.html">Specifying command options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="codeql-cli-reference.html">CodeQL CLI reference</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://codeql.github.com/docs/codeql-cli/manual">CodeQL CLI manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../writing-codeql-queries/index.html">Writing CodeQL queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-language-guides/index.html">CodeQL language guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ql-language-reference/index.html">QL language reference</a></li>
+</ul>
+
+
+</nav>
+
+
+<div class="body col-sm-12 col-md-9 col-lg-9 float-left border-left">
+
+    <div class="hide-lg hide-xl px-4 pt-4">
+        
+<div class="related" role="navigation" aria-label="related navigation">
+    <ul>
+        <li class="nav-item nav-item-0"><a href="../contents.html">CodeQL</a> &#187;</li>
+        <li class="nav-item nav-item-1"><a href="index.html"
+                >CodeQL CLI</a> &#187;</li>
+        <li class="nav-item nav-item-2"><a href="using-the-codeql-cli.html"
+                accesskey="U">Using the CodeQL CLI</a> &#187;</li> 
+    </ul>
+</div>
+    </div>
+
+    <article class="p-4 col-lg-10 col-md-10 col-sm-12">
+        
+  <section id="analyzing-databases-with-the-codeql-cli">
+<span id="id1"></span><h1>Analyzing databases with the CodeQL CLI<a class="headerlink" href="#analyzing-databases-with-the-codeql-cli" title="Link to this heading">¶</a></h1>
+<p>To analyze a codebase, you run queries against a CodeQL
+database extracted from the code.</p>
+<p>CodeQL analyses produce <a class="reference internal" href="../codeql-overview/about-codeql.html#interpret-query-results"><span class="std std-ref">interpreted results</span></a> that can be displayed as alerts or paths in source code.
+For information about writing queries to run with <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code>, see
+“<a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html"><span class="doc">Using custom queries with the CodeQL CLI</span></a>.”</p>
+<blockquote class="pull-quote">
+<div><p>Other query-running commands</p>
+<p>Queries run with <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code> have strict <a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html#including-query-metadata"><span class="std std-ref">metadata requirements</span></a>. You can also execute queries using the following
+plumbing-level subcommands:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../manual/database-run-queries">database run-queries</a>, which
+outputs non-interpreted results in an intermediate binary format called
+<a class="reference internal" href="../codeql-overview/codeql-glossary.html#bqrs-file"><span class="std std-ref">BQRS</span></a>.</p></li>
+<li><p><a class="reference external" href="../manual/query-run">query run</a>, which will output BQRS files, or print
+results tables directly to the command line. Viewing results directly in
+the command line may be useful for iterative query development using the CLI.</p></li>
+</ul>
+<p>Queries run with these commands don’t have the same metadata requirements.
+However, to save human-readable data you have to process each BQRS results
+file using the <a class="reference external" href="../manual/bqrs-decode">bqrs decode</a> plumbing
+subcommand. Therefore, for most use cases it’s easiest to use <code class="docutils literal notranslate"><span class="pre">database</span>
+<span class="pre">analyze</span></code> to directly generate interpreted results.</p>
+</div></blockquote>
+<p>Before starting an analysis you must:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="getting-started-with-the-codeql-cli.html"><span class="doc">Set up the CodeQL CLI</span></a> so that it can find the queries
+and libraries included in the CodeQL repository.</p></li>
+<li><p><a class="reference internal" href="creating-codeql-databases.html"><span class="doc">Create a CodeQL database</span></a> for the source
+code you want to analyze.</p></li>
+</ul>
+<section id="running-codeql-database-analyze">
+<h2>Running <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">database</span> <span class="pre">analyze</span></code><a class="headerlink" href="#running-codeql-database-analyze" title="Link to this heading">¶</a></h2>
+<p>When you run <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code>, it:</p>
+<ol class="arabic simple">
+<li><p>Optionally downloads any referenced CodeQL packages that are not available locally.</p></li>
+<li><p>Executes one or more query files, by running them over a CodeQL database.</p></li>
+<li><p>Interprets the results, based on certain query metadata, so that alerts can be
+displayed in the correct location in the source code.</p></li>
+<li><p>Reports the results of any diagnostic and summary queries to standard output.</p></li>
+</ol>
+<p>You can analyze a database by running the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql database analyze &lt;database&gt; --format=&lt;format&gt; --output=&lt;output&gt; &lt;queries&gt;
+</pre></div>
+</div>
+<p>You must specify:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;database&gt;</span></code>: the path to the CodeQL database you want to analyze.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--format</span></code>: the format of the results file generated during analysis. A
+number of different formats are supported, including CSV, <a class="reference internal" href="../codeql-overview/codeql-glossary.html#sarif-file"><span class="std std-ref">SARIF</span></a>, and graph formats. For more information about CSV and SARIF,
+see <a class="reference external" href="#results">Results</a>. To find out which other results formats are
+supported, see the <a class="reference external" href="../manual/database-analyze">database analyze reference</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output</span></code>: the output path of the results file generated during analysis.</p></li>
+</ul>
+<p>You can also specify:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">...&lt;query-specifications&gt;</span></code>: a list of queries to run over your database. This
+is a list of arguments. Where each argument can be:</p>
+<ul>
+<li><p>a path to a query file</p></li>
+<li><p>a path to a directory containing query files</p></li>
+<li><p>a path to a query suite file</p></li>
+<li><p>the name of a CodeQL query pack
+If omitted, the default query suite for the language
+of the database being analyzed will be used. For more information, see the
+<a class="reference internal" href="#database-analyze-examples"><span class="std std-ref">examples</span></a> below.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--sarif-category</span></code>: an identifying category for the results. Used when
+you want to upload more than one set of results for a commit.
+For example, when you use  <code class="docutils literal notranslate"><span class="pre">github</span> <span class="pre">upload-results</span></code> to send results for more than one
+language to the GitHub code scanning API. For more information about this use case,
+see <a class="reference external" href="https://docs.github.com/en/code-security/secure-coding/using-codeql-code-scanning-with-your-existing-ci-system/configuring-codeql-cli-in-your-ci-system">Configuring CodeQL CLI in your CI system</a> in the GitHub documentation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--sarif-add-query-help</span></code>: (supported in version 2.7.1 onwards) adds any custom query help written
+in markdown to SARIF files (v2.1.0 or later) generated by the analysis. Query help stored in <code class="docutils literal notranslate"><span class="pre">.qhelp</span></code> files must be
+converted to <code class="docutils literal notranslate"><span class="pre">.md</span></code> before running the analysis. For further information,
+see “<a class="reference internal" href="#including-query-help-for-custom-codeql-queries-in-sarif-files"><span class="std std-ref">Including query help for custom CodeQL queries in SARIF files</span></a>.”</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--download</span></code>: a boolean flag that will allow the CLI to download  any referenced CodeQL packages that are not available locally.
+If this flag is missing and a referenced CodeQL package is not available locally, the command will fail.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--threads</span></code>: optionally, the number of threads to use when running queries.
+The default option is <code class="docutils literal notranslate"><span class="pre">1</span></code>. You can specify more threads to speed up query
+execution. Specifying <code class="docutils literal notranslate"><span class="pre">0</span></code> matches the number of threads to the number of logical processors.</p></li>
+</ul>
+<blockquote class="pull-quote">
+<div><p>Upgrading databases</p>
+<p>If the CodeQL queries you want to use are newer than the
+extractor used to create the database, then you may see a message telling you
+that your database needs to be upgraded when you run <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code>.
+You can quickly upgrade a database by running the <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">upgrade</span></code>
+command. For more information, see “<a class="reference internal" href="upgrading-codeql-databases.html"><span class="doc">Upgrading CodeQL databases</span></a>.”</p>
+</div></blockquote>
+<p>For full details of all the options you can use when analyzing databases, see
+the <a class="reference external" href="../manual/database-analyze">database analyze reference documentation</a>.</p>
+</section>
+<section id="examples">
+<span id="database-analyze-examples"></span><h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<p>The following examples assume your CodeQL databases have been created in a
+directory that is a sibling of your local copies of the CodeQL and CodeQL for Go
+repositories.</p>
+<section id="running-a-single-query">
+<h3>Running a single query<a class="headerlink" href="#running-a-single-query" title="Link to this heading">¶</a></h3>
+<p>To run a single query over a CodeQL database for a JavaScript codebase,
+you could use the following command from the directory containing your database:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql database analyze &lt;javascript-database&gt; ../ql/javascript/ql/src/Declarations/UnusedVariable.ql --format=csv --output=js-analysis/js-results.csv
+</pre></div>
+</div>
+<p>This command runs a simple query that finds potential bugs related to unused
+variables, imports, functions, or classes—it is one of the JavaScript
+queries included in the CodeQL repository. You could run more than one query by
+specifying a space-separated list of similar paths.</p>
+<p>The analysis generates a CSV file (<code class="docutils literal notranslate"><span class="pre">js-results.csv</span></code>) in a new directory
+(<code class="docutils literal notranslate"><span class="pre">js-analysis</span></code>).</p>
+<p>You can also run your own custom queries with the <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code> command.
+For more information about preparing your queries to use with the CodeQL CLI,
+see “<a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html"><span class="doc">Using custom queries with the CodeQL CLI</span></a>.”</p>
+</section>
+<section id="running-a-codeql-pack">
+<h3>Running a CodeQL pack<a class="headerlink" href="#running-a-codeql-pack" title="Link to this heading">¶</a></h3>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>The CodeQL package management functionality, including CodeQL packs, is currently available as a beta release and is subject to change. During the beta release, CodeQL packs are available only using GitHub Packages - the GitHub Container registry. To use this beta functionality, install version 2.6.0 or higher of the CodeQL CLI bundle from: <a class="reference external" href="https://github.com/github/codeql-action/releases">https://github.com/github/codeql-action/releases</a>.</p>
+</div></blockquote>
+<p>To run an existing CodeQL query pack from the GitHub Container registry, you can specify one or more
+pack names and use the <code class="docutils literal notranslate"><span class="pre">--download</span></code> flag:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql database analyze &lt;database&gt; microsoft/coding-standards@1.0.0 github/security-queries --format=sarifv2.1.0 --output=query-results.sarif --download
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">analyze</span></code> command above runs the default suite from <code class="docutils literal notranslate"><span class="pre">microsoft/coding-standards</span> <span class="pre">v1.0.0</span></code> and the latest version of <code class="docutils literal notranslate"><span class="pre">github/secutiry-queries</span></code> on the specified database.
+For further information about default suites, see “<a class="reference internal" href="publishing-and-using-codeql-packs.html#publishing-and-using-codeql-packs"><span class="std std-ref">Publishing and using CodeQL packs</span></a>”.</p>
+<p>For more information about CodeQL packs, see <a class="reference internal" href="about-codeql-packs.html"><span class="doc">About CodeQL Packs</span></a>.</p>
+</section>
+<section id="running-query-suites">
+<h3>Running query suites<a class="headerlink" href="#running-query-suites" title="Link to this heading">¶</a></h3>
+<p>To run a query suite over a CodeQL database for a C/C++ codebase,
+you could use the following command from the directory containing your database:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql database analyze &lt;cpp-database&gt; cpp-code-scanning.qls --format=sarifv2.1.0 --output=cpp-results.sarif
+</pre></div>
+</div>
+<p>The analysis generates a file in the v2.1.0 SARIF format that is supported by all versions of GitHub.
+This file can be uploaded to GitHub by executing <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">github</span> <span class="pre">upload-results</span></code> or the code scanning API.
+For more information, see <a class="reference external" href="https://docs.github.com/en/code-security/secure-coding/configuring-codeql-cli-in-your-ci-system#analyzing-a-codeql-database">Analyzing a CodeQL database</a>
+or <a class="reference external" href="https://docs.github.com/en/rest/reference/code-scanning">Code scanning API</a> in the GitHub documentation.</p>
+<p>CodeQL query suites are <code class="docutils literal notranslate"><span class="pre">.qls</span></code> files that use directives to select queries to run
+based on certain metadata properties. The standard QL packs have metadata that specify
+the location of the query suites used by code scanning, so the CodeQL CLI knows where to find these
+suite files automatically, and you don’t have to specify the full path on the command line.
+For more information, see “<a class="reference internal" href="about-ql-packs.html#standard-ql-packs"><span class="std std-ref">About QL packs</span></a>.”</p>
+<p>The standard query suites are stored at the following paths in
+the CodeQL repository:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ql/&lt;language&gt;/ql/src/codeql-suites/&lt;language&gt;-code-scanning.qls
+</pre></div>
+</div>
+<p>and at the following path in the CodeQL for Go repository:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ql/src/codeql-suites/go-code-scanning.qls
+</pre></div>
+</div>
+<p>The repository also includes the query suites used by <a class="reference external" href="https://lgtm.com">LGTM.com</a>.
+These are stored alongside the query suites for code scanning with names of the form: <code class="docutils literal notranslate"><span class="pre">&lt;language&gt;-lgtm.qls</span></code>.</p>
+<p>For information about creating custom query suites, see “<a class="reference internal" href="creating-codeql-query-suites.html"><span class="doc">Creating
+CodeQL query suites</span></a>.”</p>
+<section id="diagnostic-and-summary-information">
+<h4>Diagnostic and summary information<a class="headerlink" href="#diagnostic-and-summary-information" title="Link to this heading">¶</a></h4>
+<p>When you create a CodeQL database, the extractor stores diagnostic data in the database. The code scanning query suites include additional queries to report on this diagnostic data and calculate summary metrics. When the <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code> command completes, the CLI generates the results file and reports any diagnostic and summary data to standard output. If you choose to generate SARIF output, the additional data is also included in the SARIF file.</p>
+<p>If the analysis found fewer results for standard queries than you expected, review the results of the diagnostic and summary queries to check whether the CodeQL database is likely to be a good representation of the codebase that you want to analyze.</p>
+</section>
+</section>
+<section id="integrating-a-codeql-pack-into-a-code-scanning-workflow-in-github">
+<h3>Integrating a CodeQL pack into a code scanning workflow in GitHub<a class="headerlink" href="#integrating-a-codeql-pack-into-a-code-scanning-workflow-in-github" title="Link to this heading">¶</a></h3>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>The CodeQL package management functionality, including CodeQL packs, is currently available as a beta release and is subject to change. During the beta release, CodeQL packs are available only using GitHub Packages - the GitHub Container registry. To use this beta functionality, install version 2.6.0 or higher of the CodeQL CLI bundle from: <a class="reference external" href="https://github.com/github/codeql-action/releases">https://github.com/github/codeql-action/releases</a>.</p>
+</div></blockquote>
+<p>You can use CodeQL query packs in your code scanning setup. This allows you to select query packs published by various sources and use them to analyze your code.
+For more information, see “<a class="reference external" href="https://docs.github.com/en/code-security/secure-coding/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-codeql-query-packs/">Using CodeQL query packs in the CodeQL action</a>” or “<a class="reference external" href="https://docs.github.com/en/code-security/secure-coding/using-codeql-code-scanning-with-your-existing-ci-system/configuring-codeql-cli-in-your-ci-system#downloading-and-using-codeql-query-packs">Downloading and using CodeQL query packs in your CI system</a>.”</p>
+</section>
+<section id="running-all-queries-in-a-directory">
+<h3>Running all queries in a directory<a class="headerlink" href="#running-all-queries-in-a-directory" title="Link to this heading">¶</a></h3>
+<p>You can run all the queries located in a directory by providing the directory
+path, rather than listing all the individual query files. Paths are searched
+recursively, so any queries contained in subfolders will also be executed.</p>
+<blockquote class="pull-quote">
+<div><p>Important</p>
+<p>You shouldn’t specify the root of a <a class="reference internal" href="about-ql-packs.html"><span class="doc">QL pack</span></a> when executing <code class="docutils literal notranslate"><span class="pre">database</span> <span class="pre">analyze</span></code>
+as it contains some special queries that aren’t designed to be used with
+the command. Rather, to run a wide range of useful queries, run one of the
+LGTM.com query suites.</p>
+</div></blockquote>
+<p>For example, to execute all Python queries contained in the <code class="docutils literal notranslate"><span class="pre">Functions</span></code>
+directory you would run:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql database analyze &lt;python-database&gt; ../ql/python/ql/src/Functions/ --format=sarif-latest --output=python-analysis/python-results.sarif
+</pre></div>
+</div>
+<p>A SARIF results file is generated. Specifying <code class="docutils literal notranslate"><span class="pre">--format=sarif-latest</span></code> ensures
+that the results are formatted according to the most recent SARIF specification
+supported by CodeQL.</p>
+</section>
+<section id="including-query-help-for-custom-codeql-queries-in-sarif-files">
+<span id="id2"></span><h3>Including query help for custom CodeQL queries in SARIF files<a class="headerlink" href="#including-query-help-for-custom-codeql-queries-in-sarif-files" title="Link to this heading">¶</a></h3>
+<p>If you use the CodeQL CLI to to run code scanning analyses on third party CI/CD systems,
+you can include the query help for your custom queries in SARIF files generated during an analysis.
+After uploading the SARIF file to GitHub, the query help is shown in the code scanning UI for any
+alerts generated by the custom queries.</p>
+<p>From CodeQL CLI 2.7.1 onwards, you can include markdown-rendered query help in SARIF files
+by providing the <code class="docutils literal notranslate"><span class="pre">--sarif-add-query-help</span></code> option when running
+<code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">database</span> <span class="pre">analyze</span></code>.
+For more information, see <a class="reference external" href="https://docs.github.com/en/code-security/code-scanning/using-codeql-code-scanning-with-your-existing-ci-system/configuring-codeql-cli-in-your-ci-system#analyzing-a-codeql-database">Configuring CodeQL CLI in your CI system</a>
+in the GitHub documentation.</p>
+<p>You can write query help for custom queries directly in a markdown file and save it alongside the
+corresponding query. Alternatively, for consistency with the standard CodeQL queries,
+you can write query help in the <code class="docutils literal notranslate"><span class="pre">.qhelp</span></code> format. Query help written in <code class="docutils literal notranslate"><span class="pre">.qhelp</span></code>
+files can’t be included in SARIF files, and they can’t be processed by code
+scanning so must be converted to markdown before running
+the analysis. For more information, see “<a class="reference internal" href="../writing-codeql-queries/query-help-files.html#query-help-files"><span class="std std-ref">Query help files</span></a>”
+and “<a class="reference internal" href="testing-query-help-files.html"><span class="doc">Testing query help files</span></a>.”</p>
+</section>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">¶</a></h2>
+<p>You can save analysis results in a number of different formats, including SARIF
+and CSV.</p>
+<p>The SARIF format is designed to represent the output of a broad range of static
+analysis tools. For more information, see <a class="reference internal" href="sarif-output.html"><span class="doc">SARIF output</span></a>.</p>
+<p>If you choose to generate results in CSV format, then each line in the output file
+corresponds to an alert. Each line is a comma-separated list with the following information:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 40.0%" />
+<col style="width: 40.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Name</p></td>
+<td><p>Name of the query that identified the result.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Inefficient</span> <span class="pre">regular</span> <span class="pre">expression</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Description of the query.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">regular</span> <span class="pre">expression</span> <span class="pre">that</span> <span class="pre">requires</span> <span class="pre">exponential</span> <span class="pre">time</span> <span class="pre">to</span> <span class="pre">match</span> <span class="pre">certain</span>
+<span class="pre">inputs</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">performance</span> <span class="pre">bottleneck,</span> <span class="pre">and</span> <span class="pre">may</span> <span class="pre">be</span> <span class="pre">vulnerable</span> <span class="pre">to</span>
+<span class="pre">denial-of-service</span> <span class="pre">attacks.</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Severity</p></td>
+<td><p>Severity of the query.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">error</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Message</p></td>
+<td><p>Alert message.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">part</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">regular</span> <span class="pre">expression</span> <span class="pre">may</span> <span class="pre">cause</span> <span class="pre">exponential</span> <span class="pre">backtracking</span>
+<span class="pre">on</span> <span class="pre">strings</span> <span class="pre">containing</span> <span class="pre">many</span> <span class="pre">repetitions</span> <span class="pre">of</span> <span class="pre">'\\\\'.</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Path</p></td>
+<td><p>Path of the file containing the alert.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/vendor/codemirror/markdown.js</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Start line</p></td>
+<td><p>Line of the file where the code that triggered the alert begins.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">617</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Start column</p></td>
+<td><p>Column of the start line that marks the start of the alert code. Not
+included when equal to 1.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">32</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>End line</p></td>
+<td><p>Line of the file where the code that triggered the alert ends. Not
+included when the same value as the start line.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">64</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>End column</p></td>
+<td><p>Where available, the column of the end line that marks the end of the
+alert code. Otherwise the end line is repeated.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">617</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Results files can be integrated into your own code-review or debugging
+infrastructure. For example, SARIF file output can be used to highlight alerts
+in the correct location in your source code using a SARIF viewer plugin for your
+IDE.</p>
+</section>
+<section id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>“<a class="reference internal" href="../codeql-for-visual-studio-code/analyzing-your-projects.html#analyzing-your-projects"><span class="std std-ref">Analyzing your projects in CodeQL for VS Code</span></a>”</p></li>
+</ul>
+</section>
+</section>
+
+
+    </article>
+
+    <!-- GitHub footer, with links to terms and privacy statement -->
+    <div class="px-3 px-md-6 f6 py-4 d-sm-flex flex-justify-between flex-row-reverse flex-items-center border-top">
+        <ul class="list-style-none d-flex flex-items-center mb-3 mb-sm-0 lh-condensed-ultra">
+            <li class="mr-3">
+                <a href="https://twitter.com/github" title="GitHub on Twitter" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3" class="d-block" height="18">
+                        <path
+                            d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.facebook.com/GitHub" title="GitHub on Facebook" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.3 15.4" class="d-block" height="18">
+                        <path
+                            d="M14.5 0H.8a.88.88 0 0 0-.8.9v13.6a.88.88 0 0 0 .8.9h7.3v-6h-2V7.1h2V5.4a2.87 2.87 0 0 1 2.5-3.1h.5a10.87 10.87 0 0 1 1.8.1v2.1h-1.3c-1 0-1.1.5-1.1 1.1v1.5h2.3l-.3 2.3h-2v5.9h3.9a.88.88 0 0 0 .9-.8V.8a.86.86 0 0 0-.8-.8z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.youtube.com/github" title="GitHub on YouTube" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 13.6" class="d-block" height="16">
+                        <path
+                            d="M18.77 2.13A2.4 2.4 0 0 0 17.09.42C15.59 0 9.58 0 9.58 0a57.55 57.55 0 0 0-7.5.4A2.49 2.49 0 0 0 .39 2.13 26.27 26.27 0 0 0 0 6.8a26.15 26.15 0 0 0 .39 4.67 2.43 2.43 0 0 0 1.69 1.71c1.52.42 7.5.42 7.5.42a57.69 57.69 0 0 0 7.51-.4 2.4 2.4 0 0 0 1.68-1.71 25.63 25.63 0 0 0 .4-4.67 24 24 0 0 0-.4-4.69zM7.67 9.71V3.89l5 2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3 flex-self-start">
+                <a href="https://www.linkedin.com/company/github" title="GitHub on Linkedin" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18" class="d-block" height="18">
+                        <path
+                            d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/github" title="GitHub's organization" style="color: #959da5;">
+                    <svg version="1.1" width="20" height="20" viewBox="0 0 16 16" class="octicon octicon-mark-github"
+                        aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-style-none d-flex text-gray">
+            <li class="mr-3">&copy; 
+                <script type="text/javascript">document.write(new Date().getFullYear());</script> GitHub, Inc.</li>
+            <li class="mr-3"><a
+                    href="https://docs.github.com/github/site-policy/github-terms-of-service"
+                    class="link-gray">Terms </a></li>
+            <li><a href="https://docs.github.com/github/site-policy/github-privacy-statement"
+                    class="link-gray">Privacy </a></li>
+        </ul>
+    </div>
+</div>
+</main>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".toggle > *").hide();
+        $(".toggle .name").show();
+        $(".toggle .name").click(function () {
+            $(this).parent().children().not(".name").toggle(400);
+            $(this).parent().children(".name").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Getting started with the CodeQL CLI &#8212; CodeQL</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=93459777" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Creating CodeQL databases" href="creating-codeql-databases.html" />
+    <link rel="prev" title="About the CodeQL CLI" href="about-the-codeql-cli.html" />
+
+<title>CodeQL docs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+<link rel="stylesheet" href="../_static/primer.css" type="text/css" />
+
+
+  </head><body>
+<header class="Header">
+    <div class="Header-item--full">
+        <a href="https://codeql.github.com/docs" class="Header-link f2 d-flex flex-items-center">
+            <!-- <%= octicon "mark-github", class: "mr-2", height: 32 %> -->
+            <svg height="32" class="octicon octicon-mark-github mr-2" viewBox="0 0 16 16" version="1.1" width="32"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+            <span class="hide-sm">CodeQL documentation</span>
+        </a>
+    </div>
+    <div class="Header-item hide-sm hide-md">
+        <script src="https://addsearch.com/js/?key=93b4d287e2fc079a4089412b669785d5&categories=!0xhelp.semmle.com,0xcodeql.github.com,1xdocs,1xcodeql-standard-libraries,1xcodeql-query-help"></script>
+    </div>
+    <div class="Header-item">
+
+        <details class="dropdown details-reset details-overlay d-inline-block">
+            <summary class="btn bg-gray-dark text-white border" aria-haspopup="true">
+                CodeQL resources
+                <div class="dropdown-caret"></div>
+            </summary>
+
+            <ul class="dropdown-menu dropdown-menu-se dropdown-menu-dark">
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-overview">CodeQL overview</a></li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL tools
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-for-visual-studio-code">CodeQL for VS Code</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-cli">CodeQL CLI</a>
+                </li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL guides
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/writing-codeql-queries">Writing CodeQL queries</a></li>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-language-guides">CodeQL language guides</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Reference docs
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/ql-language-reference/">QL language
+                        reference</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-standard-libraries">CodeQL
+                        standard-libraries</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-query-help">CodeQL
+                        query help</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Source files
+                </div>
+                <li><a class="dropdown-item" href="https://github.com/github/codeql">CodeQL repository</a>
+            </ul>
+        </details>
+
+    </div>
+
+</header>
+<main class="bg-gray-light clearfix">
+<nav class="SideNav position-sticky top-0 col-lg-3 col-md-3 float-left p-4 hide-sm hide-md overflow-y-auto">
+
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../codeql-overview/index.html">CodeQL overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-for-visual-studio-code/index.html">CodeQL for Visual Studio Code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CodeQL CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="using-the-codeql-cli.html">Using the CodeQL CLI</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="about-the-codeql-cli.html">About the CodeQL CLI</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Getting started with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-databases.html">Creating CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extractor-options.html">Extractor options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="analyzing-databases-with-the-codeql-cli.html">Analyzing databases with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrading-codeql-databases.html">Upgrading CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html">Using custom queries with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-query-suites.html">Creating CodeQL query suites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-custom-queries.html">Testing custom queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-query-help-files.html">Testing query help files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-and-working-with-codeql-packs.html">Creating and working with CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="publishing-and-using-codeql-packs.html">Publishing and using CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifying-command-options-in-a-codeql-configuration-file.html">Specifying command options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="codeql-cli-reference.html">CodeQL CLI reference</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://codeql.github.com/docs/codeql-cli/manual">CodeQL CLI manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../writing-codeql-queries/index.html">Writing CodeQL queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-language-guides/index.html">CodeQL language guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ql-language-reference/index.html">QL language reference</a></li>
+</ul>
+
+
+</nav>
+
+
+<div class="body col-sm-12 col-md-9 col-lg-9 float-left border-left">
+
+    <div class="hide-lg hide-xl px-4 pt-4">
+        
+<div class="related" role="navigation" aria-label="related navigation">
+    <ul>
+        <li class="nav-item nav-item-0"><a href="../contents.html">CodeQL</a> &#187;</li>
+        <li class="nav-item nav-item-1"><a href="index.html"
+                >CodeQL CLI</a> &#187;</li>
+        <li class="nav-item nav-item-2"><a href="using-the-codeql-cli.html"
+                accesskey="U">Using the CodeQL CLI</a> &#187;</li> 
+    </ul>
+</div>
+    </div>
+
+    <article class="p-4 col-lg-10 col-md-10 col-sm-12">
+        
+  <section id="getting-started-with-the-codeql-cli">
+<span id="id1"></span><h1>Getting started with the CodeQL CLI<a class="headerlink" href="#getting-started-with-the-codeql-cli" title="Link to this heading">¶</a></h1>
+<p>To run CodeQL commands, you need to set up the CLI so that it can access
+the tools, queries, and libraries required to create and analyze databases.</p>
+<blockquote class="pull-quote">
+<div><p>License notice</p>
+<p>If you don’t have an Enterprise license then, by installing this product, you are agreeing to the
+<a class="reference external" href="https://securitylab.github.com/tools/codeql/license">GitHub CodeQL Terms and Conditions</a>.</p>
+<p>GitHub CodeQL is licensed on a per-user basis. Under the license restrictions,
+you can use CodeQL to perform the following tasks:</p>
+<ul class="simple">
+<li><p>To perform academic research.</p></li>
+<li><p>To demonstrate the software.</p></li>
+<li><p>To test CodeQL queries that are released under an OSI-approved
+License to confirm that new versions of those queries continue to
+find the right vulnerabilities.</p></li>
+</ul>
+<p>where “OSI-approved License” means an Open Source Initiative
+(OSI)-approved open source software license.</p>
+<p>If you are working with an Open Source Codebase (that is, a codebase that is
+released under an OSI-approved License) you can also use CodeQL for the following tasks:</p>
+<ul class="simple">
+<li><p>To perform analysis of the Open Source Codebase.</p></li>
+<li><p>If the Open Source Codebase is hosted and maintained on
+GitHub.com, to generate CodeQL databases for or during automated
+analysis, continuous integration, or continuous delivery.</p></li>
+</ul>
+<p>CodeQL can’t be used for automated analysis, continuous integration or
+continuous delivery, whether as part of normal software engineering processes
+or otherwise, except in the express cases set forth herein. For these uses,
+contact the <a class="reference external" href="https://enterprise.github.com/contact">sales team</a>.</p>
+</div></blockquote>
+<section id="setting-up-the-codeql-cli">
+<span id="setting-up-cli"></span><h2>Setting up the CodeQL CLI<a class="headerlink" href="#setting-up-the-codeql-cli" title="Link to this heading">¶</a></h2>
+<p>The CodeQL CLI can be set up to support many different use cases and directory
+structures. To get started quickly, we recommend adopting a relatively simple
+setup, as outlined in the steps below.</p>
+<p>If you use Linux, Windows, or macOS version 10.14 (“Mojave”) or earlier, simply
+follow the steps below. For macOS version 10.15 (“Catalina”) or newer, steps 1
+and 4 are slightly different—for further details, see the sections labeled
+<strong>Information for macOS “Catalina” (or newer) users</strong>. If you are using macOS
+on Apple Silicon (e.g. Apple M1), ensure that the <a class="reference external" href="https://developer.apple.com/downloads/index.action">Xcode command-line developer
+tools</a> and <a class="reference external" href="https://support.apple.com/en-us/HT211861">Rosetta 2</a> are installed.</p>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>The CodeQL CLI is currently not compatible with non-glibc Linux
+distributions such as (muslc-based) Alpine Linux.</p>
+</div></blockquote>
+<p>For information about installing the CodeQL CLI in a CI system to create results
+to display in GitHub as code scanning alerts, see
+<a class="reference external" href="https://docs.github.com/en/code-security/secure-coding/using-codeql-code-scanning-with-your-existing-ci-system/installing-codeql-cli-in-your-ci-system">Installing CodeQL CLI in your CI system</a>
+in the GitHub documentation.</p>
+<section id="download-the-codeql-cli-zip-package">
+<span id="download-cli"></span><h3>1. Download the CodeQL CLI zip package<a class="headerlink" href="#download-the-codeql-cli-zip-package" title="Link to this heading">¶</a></h3>
+<p>The CodeQL CLI download package is a zip archive containing tools, scripts, and
+various CodeQL-specific files. If you don’t have an Enterprise license then, by
+downloading this archive, you are agreeing to the <a class="reference external" href="https://securitylab.github.com/tools/codeql/license">GitHub CodeQL Terms and
+Conditions</a>.</p>
+<blockquote class="pull-quote">
+<div><p>Important</p>
+<p>There are several different versions of the CLI available to download, depending
+on your use case:</p>
+<ul class="simple">
+<li><p>If you want to use the most up to date CodeQL tools and features, download the
+version tagged <code class="docutils literal notranslate"><span class="pre">latest</span></code>.</p></li>
+<li><p>If you want to create CodeQL databases to upload to LGTM Enterprise, download
+the version that is compatible with the relevant LGTM Enterprise version
+number. Compatibility information is included in the description for each
+release on the <a class="reference external" href="https://github.com/github/codeql-cli-binaries/releases">CodeQL CLI releases page</a> on GitHub. Using the
+correct version of the CLI ensures that your CodeQL databases are
+compatible with your version of LGTM Enterprise. For more information,
+see <a class="reference external" href="https://help.semmle.com/lgtm-enterprise/admin/help/prepare-database-upload.html">Preparing CodeQL databases to upload to LGTM</a>
+in the LGTM admin help.</p></li>
+</ul>
+</div></blockquote>
+<p>If you use Linux, Windows, or macOS version 10.14 (“Mojave”) or earlier, simply
+<a class="reference external" href="https://github.com/github/codeql-cli-binaries/releases">download the zip archive</a>
+for the version you require.</p>
+<p>If you want the CLI for a specific platform, download the appropriate <code class="docutils literal notranslate"><span class="pre">codeql-PLATFORM.zip</span></code> file.
+Alternatively, you can download <code class="docutils literal notranslate"><span class="pre">codeql.zip</span></code>, which contains the CLI for all supported platforms.</p>
+<div class="toggle docutils container">
+<div class="name docutils container">
+<p><strong>Information for macOS “Catalina” (or newer) users</strong></p>
+</div>
+<blockquote class="pull-quote">
+<div><p>macOS “Catalina” (or newer)</p>
+<p>If you use macOS version 10.15 (“Catalina”), version 11 (“Big Sur”), or the upcoming
+version 12 (“Monterey”), you need to ensure that your web browser does not automatically
+extract zip files. If you use Safari, complete the following steps before downloading
+the CodeQL CLI zip archive:</p>
+<ol class="lowerroman simple">
+<li><p>Open Safari.</p></li>
+<li><p>From the Safari menu, select <strong>Preferences…</strong>.</p></li>
+<li><p>Click the <strong>General</strong> Tab.</p></li>
+<li><p>Ensure the check-box labeled <strong>Open “safe” files after downloading</strong>.
+is unchecked.</p></li>
+</ol>
+</div></blockquote>
+</div>
+</section>
+<section id="extract-the-zip-archive">
+<h3>2. Extract the zip archive<a class="headerlink" href="#extract-the-zip-archive" title="Link to this heading">¶</a></h3>
+<p>For Linux, Windows, and macOS users (version 10.14 “Mojave”, and earlier)
+simply extract the zip archive.</p>
+<div class="toggle docutils container">
+<div class="name docutils container">
+<p><strong>Information for macOS “Catalina” (or newer) users</strong></p>
+</div>
+<blockquote class="pull-quote">
+<div><p>macOS “Catalina”</p>
+<p>macOS “Catalina”, “Big Sur”, or “Monterey” users should run the following
+commands in the Terminal, where <code class="docutils literal notranslate"><span class="pre">${extraction-root}</span></code> is the path to the
+directory where you will extract the CodeQL CLI zip archive:</p>
+<ol class="lowerroman simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">~/Downloads/codeql*.zip</span> <span class="pre">${extraction-root}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">${extraction-root}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/usr/bin/xattr</span> <span class="pre">-c</span> <span class="pre">codeql*.zip</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unzip</span> <span class="pre">codeql*.zip</span></code></p></li>
+</ol>
+</div></blockquote>
+</div>
+</section>
+<section id="launch-codeql">
+<span id="launch-codeql-cli"></span><h3>3. Launch <code class="docutils literal notranslate"><span class="pre">codeql</span></code><a class="headerlink" href="#launch-codeql" title="Link to this heading">¶</a></h3>
+<p>Once extracted, you can run CodeQL processes by running the <code class="docutils literal notranslate"><span class="pre">codeql</span></code>
+executable in a couple of ways:</p>
+<ul class="simple">
+<li><p>By executing <code class="docutils literal notranslate"><span class="pre">&lt;extraction-root&gt;/codeql/codeql</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">&lt;extraction-root&gt;</span></code> is the folder where you extracted the CodeQL CLI
+package.</p></li>
+<li><p>By adding <code class="docutils literal notranslate"><span class="pre">&lt;extraction-root&gt;/codeql</span></code> to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, so that you
+can run the executable as just <code class="docutils literal notranslate"><span class="pre">codeql</span></code>.</p></li>
+</ul>
+<p>At this point, you can execute CodeQL commands. For a full list of the CodeQL
+CLI commands, see the “<a class="reference external" href="../manual">CodeQL CLI manual</a>.”</p>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>If you add <code class="docutils literal notranslate"><span class="pre">codeql</span></code> to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, it can be accessed by CodeQL
+for Visual Studio Code to compile and run queries.
+For more information about configuring VS Code to access the CodeQL CLI, see
+“<a class="reference internal" href="../codeql-for-visual-studio-code/setting-up-codeql-in-visual-studio-code.html#setting-up-codeql-in-visual-studio-code"><span class="std std-ref">Setting up CodeQL in Visual Studio Code</span></a>.”</p>
+</div></blockquote>
+</section>
+<section id="verify-your-codeql-cli-setup">
+<h3>4. Verify your CodeQL CLI setup<a class="headerlink" href="#verify-your-codeql-cli-setup" title="Link to this heading">¶</a></h3>
+<p>CodeQL CLI has subcommands you can execute to verify that you are correctly set
+up to create and analyze databases:</p>
+<ul>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">resolve</span> <span class="pre">languages</span></code> to show which languages are
+available for database creation. This will list the languages supported by
+default in your CodeQL CLI package.</p></li>
+<li><p>(Optional) You can download some “<a class="reference internal" href="about-codeql-packs.html#about-codeql-packs"><span class="std std-ref">CodeQL packs</span></a>” containing pre-compiled queries you would like to run.
+To do this, run <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">pack</span> <span class="pre">download</span> <span class="pre">&lt;pack-name&gt;</span> <span class="pre">[...pack-name]</span></code>, where <code class="docutils literal notranslate"><span class="pre">pack-name</span></code> is the name of
+the pack you want to download. The core query packs are a good place to start. They are:</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">codeql/cpp-queries</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codeql/csharp-queries</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codeql/java-queries</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codeql/javascript-queries</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codeql/python-queries</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codeql/ruby-queries</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Alternatively, you can download query packs during the analysis by using the <code class="docutils literal notranslate"><span class="pre">--download</span></code> flag of the <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">database</span> <span class="pre">analyze</span></code>
+command.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section id="checking-out-the-codeql-source-code-directly">
+<h2>Checking out the CodeQL source code directly<a class="headerlink" href="#checking-out-the-codeql-source-code-directly" title="Link to this heading">¶</a></h2>
+<p>Some users prefer working with CodeQL query sources directly in order to work on or contribute to the Open Source shared queries. In
+order to do this, the following steps are recommended. Note that the following instructions are a slightly more complicated alternative
+to working with CodeQL packages as explained above.</p>
+<section id="download-the-codeql-cli-zip">
+<h3>1. Download the CodeQL CLI zip<a class="headerlink" href="#download-the-codeql-cli-zip" title="Link to this heading">¶</a></h3>
+<p>Follow <a class="reference internal" href="#download-cli"><span class="std std-ref">step 1 from the previous section</span></a>.</p>
+</section>
+<section id="create-a-new-codeql-directory">
+<h3>2. Create a new CodeQL directory<a class="headerlink" href="#create-a-new-codeql-directory" title="Link to this heading">¶</a></h3>
+<p>Create a new directory where you can place the CLI and any queries and libraries
+you want to use. For example, <code class="docutils literal notranslate"><span class="pre">$HOME/codeql-home</span></code>.</p>
+<p>The CLI’s built-in search operations automatically look in all of its sibling
+directories for the files used in database creation and analysis. Keeping these
+components in their own directory prevents the CLI searching unrelated sibling
+directories while ensuring all files are available without specifying any
+further options on the command line.</p>
+</section>
+<section id="obtain-a-local-copy-of-the-codeql-queries">
+<span id="local-copy-codeql-queries"></span><h3>3. Obtain a local copy of the CodeQL queries<a class="headerlink" href="#obtain-a-local-copy-of-the-codeql-queries" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference external" href="https://github.com/github/codeql">CodeQL repository</a> contains
+the queries and libraries required for CodeQL analysis of C/C++, C#, Java,
+JavaScript/TypeScript, Python, and Ruby.
+Clone a copy of this repository into <code class="docutils literal notranslate"><span class="pre">codeql-home</span></code>.</p>
+<p>By default, the root of the cloned repository will be called <code class="docutils literal notranslate"><span class="pre">codeql</span></code>.
+Rename this folder <code class="docutils literal notranslate"><span class="pre">codeql-repo</span></code> to avoid conflicting with the CodeQL
+CLI that you will extract in step 4. If you use git on the command line, you can
+clone and rename the repository in a single step by running
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:github/codeql.git</span> <span class="pre">codeql-repo</span></code> in the <code class="docutils literal notranslate"><span class="pre">codeql-home</span></code> folder.</p>
+<p>The CodeQL libraries and queries for Go analysis live in the <a class="reference external" href="https://github.com/github/codeql-go/">CodeQL for Go
+repository</a>. Clone a copy of this
+repository into <code class="docutils literal notranslate"><span class="pre">codeql-home</span></code>, and run <code class="docutils literal notranslate"><span class="pre">codeql-go/scripts/install-deps.sh</span></code>
+to install its dependencies.</p>
+<p>The cloned repositories should have a sibling relationship.
+For example, if the root of the cloned CodeQL repository is
+<code class="docutils literal notranslate"><span class="pre">$HOME/codeql-home/codeql-repo</span></code>, then the root of the cloned CodeQL for Go
+repository should be <code class="docutils literal notranslate"><span class="pre">$HOME/codeql-home/codeql-go</span></code>.</p>
+<p>Within these repositories, the queries and libraries are organized into QL
+packs. Along with the queries themselves, QL packs contain important metadata
+that tells the CodeQL CLI how to process the query files. For more information,
+see “<a class="reference internal" href="about-ql-packs.html"><span class="doc">About QL packs</span></a>.”</p>
+<blockquote class="pull-quote">
+<div><p>Important</p>
+<p>There are different versions of the CodeQL queries available for different
+users. Check out the correct version for your use case:</p>
+<ul class="simple">
+<li><p>For the queries used on <a class="reference external" href="https://lgtm.com">LGTM.com</a>, check out the
+<code class="docutils literal notranslate"><span class="pre">lgtm.com</span></code> branch. You should use this branch for databases you’ve built
+using the CodeQL CLI, fetched from code scanning on GitHub, or recently downloaded from LGTM.com.
+The queries on the <code class="docutils literal notranslate"><span class="pre">lgtm.com</span></code> branch are more likely to be compatible
+with the <code class="docutils literal notranslate"><span class="pre">latest</span></code> CLI, so you’ll be less likely to have to upgrade
+newly-created databases than if you use the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. Older databases
+may need to be upgraded before you can analyze them.</p></li>
+<li><p>For the most up to date CodeQL queries, check out the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.
+This branch represents the very latest version of CodeQL’s analysis. Even
+databases created using the most recent version of the CLI may have to be
+upgraded before you can analyze them. For more information, see
+“<a class="reference internal" href="upgrading-codeql-databases.html"><span class="doc">Upgrading CodeQL databases</span></a>.”</p></li>
+<li><p>For the queries used in a particular LGTM Enterprise release, check out the
+branch tagged with the relevant release number. For example, the branch
+tagged <code class="docutils literal notranslate"><span class="pre">v1.27.0</span></code> corresponds to LGTM Enterprise 1.27. You must use this
+version if you want to upload data to LGTM Enterprise. For further
+information, see <a class="reference external" href="https://help.semmle.com/lgtm-enterprise/admin/help/prepare-database-upload.html">Preparing CodeQL databases to upload to LGTM</a>
+in the LGTM admin help.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>4. Extract the zip archive<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>For Linux, Windows, and macOS users (version 10.14 “Mojave”, and earlier)
+simply
+extract the zip archive into the directory you created in step 2.</p>
+<p>For example, if the path to your copy of the CodeQL repository is
+<code class="docutils literal notranslate"><span class="pre">$HOME/codeql-home/codeql-repo</span></code>, then extract the CLI into
+<code class="docutils literal notranslate"><span class="pre">$HOME/codeql-home/</span></code>.</p>
+</section>
+<section id="id3">
+<h3>5. Launch <code class="docutils literal notranslate"><span class="pre">codeql</span></code><a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>See <a class="reference internal" href="#launch-codeql-cli"><span class="std std-ref">step 3 from the previous section</span></a>.</p>
+</section>
+<section id="id4">
+<h3>6. Verify your CodeQL CLI setup<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>CodeQL CLI has subcommands you can execute to verify that you are correctly set
+up to create and analyze databases:</p>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">resolve</span> <span class="pre">languages</span></code> to show which languages are
+available for database creation. This will list the languages supported by
+default in your CodeQL CLI package.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">resolve</span> <span class="pre">qlpacks</span></code> to show which QL packs the CLI can find. This
+will display the names of all the QL packs directly available to the CodeQL CLI.
+This should include:</p>
+<ul>
+<li><p>Query packs for each supported language, for example, <code class="docutils literal notranslate"><span class="pre">codeql/{language}-queries</span></code>.
+These packs contain the standard queries that will be run for each analysis.</p></li>
+<li><p>Library packs for each supported language, for example,  <code class="docutils literal notranslate"><span class="pre">codeql/{language}-all</span></code>. These
+packs contain query libraries, such as control flow and data flow libraries, that
+may be useful to query writers.</p></li>
+<li><p>Example packs for each supported language, for example, <code class="docutils literal notranslate"><span class="pre">codeql/{language}-examples</span></code>.
+These packs contain useful snippets of CodeQL that query writers may find useful.</p></li>
+<li><p>Legacy packs that ensure custom queries and libraries created using older products are
+compatible with your version of CodeQL.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="using-two-versions-of-the-codeql-cli">
+<span id="id5"></span><h2>Using two versions of the CodeQL CLI<a class="headerlink" href="#using-two-versions-of-the-codeql-cli" title="Link to this heading">¶</a></h2>
+<p>If you want to use the latest CodeQL features to execute queries or CodeQL tests,
+but also want to prepare databases that are compatible with a specific version of
+LGTM Enterprise, you may need to install two versions of the CLI. The
+recommended directory setup depends on which versions you want to install:</p>
+<ul class="simple">
+<li><p>If both versions are 2.0.2 (or newer), you can unpack both CLI archives in the
+same parent directory.</p></li>
+<li><p>If at least one of the versions is 2.0.1 (or older), the unpacked CLI archives cannot
+be in the same parent directory, but they can share the same grandparent
+directory. For example, if you unpack version 2.0.2 into
+<code class="docutils literal notranslate"><span class="pre">$HOME/codeql-home/codeql-cli</span></code>, the older version should be
+unpacked into <code class="docutils literal notranslate"><span class="pre">$HOME/codeql-older-version/old-codeql-cli</span></code>. Here, the common
+grandparent is the <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> directory.</p></li>
+</ul>
+</section>
+</section>
+
+
+    </article>
+
+    <!-- GitHub footer, with links to terms and privacy statement -->
+    <div class="px-3 px-md-6 f6 py-4 d-sm-flex flex-justify-between flex-row-reverse flex-items-center border-top">
+        <ul class="list-style-none d-flex flex-items-center mb-3 mb-sm-0 lh-condensed-ultra">
+            <li class="mr-3">
+                <a href="https://twitter.com/github" title="GitHub on Twitter" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3" class="d-block" height="18">
+                        <path
+                            d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.facebook.com/GitHub" title="GitHub on Facebook" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.3 15.4" class="d-block" height="18">
+                        <path
+                            d="M14.5 0H.8a.88.88 0 0 0-.8.9v13.6a.88.88 0 0 0 .8.9h7.3v-6h-2V7.1h2V5.4a2.87 2.87 0 0 1 2.5-3.1h.5a10.87 10.87 0 0 1 1.8.1v2.1h-1.3c-1 0-1.1.5-1.1 1.1v1.5h2.3l-.3 2.3h-2v5.9h3.9a.88.88 0 0 0 .9-.8V.8a.86.86 0 0 0-.8-.8z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.youtube.com/github" title="GitHub on YouTube" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 13.6" class="d-block" height="16">
+                        <path
+                            d="M18.77 2.13A2.4 2.4 0 0 0 17.09.42C15.59 0 9.58 0 9.58 0a57.55 57.55 0 0 0-7.5.4A2.49 2.49 0 0 0 .39 2.13 26.27 26.27 0 0 0 0 6.8a26.15 26.15 0 0 0 .39 4.67 2.43 2.43 0 0 0 1.69 1.71c1.52.42 7.5.42 7.5.42a57.69 57.69 0 0 0 7.51-.4 2.4 2.4 0 0 0 1.68-1.71 25.63 25.63 0 0 0 .4-4.67 24 24 0 0 0-.4-4.69zM7.67 9.71V3.89l5 2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3 flex-self-start">
+                <a href="https://www.linkedin.com/company/github" title="GitHub on Linkedin" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18" class="d-block" height="18">
+                        <path
+                            d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/github" title="GitHub's organization" style="color: #959da5;">
+                    <svg version="1.1" width="20" height="20" viewBox="0 0 16 16" class="octicon octicon-mark-github"
+                        aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-style-none d-flex text-gray">
+            <li class="mr-3">&copy; 
+                <script type="text/javascript">document.write(new Date().getFullYear());</script> GitHub, Inc.</li>
+            <li class="mr-3"><a
+                    href="https://docs.github.com/github/site-policy/github-terms-of-service"
+                    class="link-gray">Terms </a></li>
+            <li><a href="https://docs.github.com/github/site-policy/github-privacy-statement"
+                    class="link-gray">Privacy </a></li>
+        </ul>
+    </div>
+</div>
+</main>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".toggle > *").hide();
+        $(".toggle .name").show();
+        $(".toggle .name").click(function () {
+            $(this).parent().children().not(".name").toggle(400);
+            $(this).parent().children(".name").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>

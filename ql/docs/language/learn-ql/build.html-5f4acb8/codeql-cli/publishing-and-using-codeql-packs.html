@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Publishing and using CodeQL packs &#8212; CodeQL</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=93459777" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Specifying command options in a CodeQL configuration file" href="specifying-command-options-in-a-codeql-configuration-file.html" />
+    <link rel="prev" title="Creating and working with CodeQL packs" href="creating-and-working-with-codeql-packs.html" />
+
+<title>CodeQL docs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+<link rel="stylesheet" href="../_static/primer.css" type="text/css" />
+
+
+  </head><body>
+<header class="Header">
+    <div class="Header-item--full">
+        <a href="https://codeql.github.com/docs" class="Header-link f2 d-flex flex-items-center">
+            <!-- <%= octicon "mark-github", class: "mr-2", height: 32 %> -->
+            <svg height="32" class="octicon octicon-mark-github mr-2" viewBox="0 0 16 16" version="1.1" width="32"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+            <span class="hide-sm">CodeQL documentation</span>
+        </a>
+    </div>
+    <div class="Header-item hide-sm hide-md">
+        <script src="https://addsearch.com/js/?key=93b4d287e2fc079a4089412b669785d5&categories=!0xhelp.semmle.com,0xcodeql.github.com,1xdocs,1xcodeql-standard-libraries,1xcodeql-query-help"></script>
+    </div>
+    <div class="Header-item">
+
+        <details class="dropdown details-reset details-overlay d-inline-block">
+            <summary class="btn bg-gray-dark text-white border" aria-haspopup="true">
+                CodeQL resources
+                <div class="dropdown-caret"></div>
+            </summary>
+
+            <ul class="dropdown-menu dropdown-menu-se dropdown-menu-dark">
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-overview">CodeQL overview</a></li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL tools
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-for-visual-studio-code">CodeQL for VS Code</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-cli">CodeQL CLI</a>
+                </li>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    CodeQL guides
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/writing-codeql-queries">Writing CodeQL queries</a></li>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/codeql-language-guides">CodeQL language guides</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Reference docs
+                </div>
+                <li><a class="dropdown-item" href="https://codeql.github.com/docs/ql-language-reference/">QL language
+                        reference</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-standard-libraries">CodeQL
+                        standard-libraries</a>
+                <li><a class="dropdown-item" href="https://codeql.github.com/codeql-query-help">CodeQL
+                        query help</a>
+                <li class="dropdown-divider" role="separator"></li>
+                <div class="dropdown-header">
+                    Source files
+                </div>
+                <li><a class="dropdown-item" href="https://github.com/github/codeql">CodeQL repository</a>
+            </ul>
+        </details>
+
+    </div>
+
+</header>
+<main class="bg-gray-light clearfix">
+<nav class="SideNav position-sticky top-0 col-lg-3 col-md-3 float-left p-4 hide-sm hide-md overflow-y-auto">
+
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../codeql-overview/index.html">CodeQL overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-for-visual-studio-code/index.html">CodeQL for Visual Studio Code</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">CodeQL CLI</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="using-the-codeql-cli.html">Using the CodeQL CLI</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="about-the-codeql-cli.html">About the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting-started-with-the-codeql-cli.html">Getting started with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-databases.html">Creating CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extractor-options.html">Extractor options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="analyzing-databases-with-the-codeql-cli.html">Analyzing databases with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upgrading-codeql-databases.html">Upgrading CodeQL databases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-custom-queries-with-the-codeql-cli.html">Using custom queries with the CodeQL CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-codeql-query-suites.html">Creating CodeQL query suites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-custom-queries.html">Testing custom queries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing-query-help-files.html">Testing query help files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-and-working-with-codeql-packs.html">Creating and working with CodeQL packs</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Publishing and using CodeQL packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specifying-command-options-in-a-codeql-configuration-file.html">Specifying command options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="codeql-cli-reference.html">CodeQL CLI reference</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://codeql.github.com/docs/codeql-cli/manual">CodeQL CLI manual</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../writing-codeql-queries/index.html">Writing CodeQL queries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../codeql-language-guides/index.html">CodeQL language guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ql-language-reference/index.html">QL language reference</a></li>
+</ul>
+
+
+</nav>
+
+
+<div class="body col-sm-12 col-md-9 col-lg-9 float-left border-left">
+
+    <div class="hide-lg hide-xl px-4 pt-4">
+        
+<div class="related" role="navigation" aria-label="related navigation">
+    <ul>
+        <li class="nav-item nav-item-0"><a href="../contents.html">CodeQL</a> &#187;</li>
+        <li class="nav-item nav-item-1"><a href="index.html"
+                >CodeQL CLI</a> &#187;</li>
+        <li class="nav-item nav-item-2"><a href="using-the-codeql-cli.html"
+                accesskey="U">Using the CodeQL CLI</a> &#187;</li> 
+    </ul>
+</div>
+    </div>
+
+    <article class="p-4 col-lg-10 col-md-10 col-sm-12">
+        
+  <section id="publishing-and-using-codeql-packs">
+<span id="id1"></span><h1>Publishing and using CodeQL packs<a class="headerlink" href="#publishing-and-using-codeql-packs" title="Link to this heading">¶</a></h1>
+<p>You can publish your own CodeQL packs and use packs published by other people.</p>
+<blockquote class="pull-quote">
+<div><p>Note</p>
+<p>The CodeQL package management functionality, including CodeQL packs, is currently available as a beta release and is subject to change. During the beta release, CodeQL packs are available only using GitHub Packages - the GitHub Container registry. To use this beta functionality, install version 2.6.0 or higher of the CodeQL CLI bundle from: <a class="reference external" href="https://github.com/github/codeql-action/releases">https://github.com/github/codeql-action/releases</a>.</p>
+</div></blockquote>
+<section id="configuring-the-qlpack-yml-file-before-publishing">
+<h2>Configuring the <code class="docutils literal notranslate"><span class="pre">qlpack.yml</span></code> file before publishing<a class="headerlink" href="#configuring-the-qlpack-yml-file-before-publishing" title="Link to this heading">¶</a></h2>
+<p>You can check and modify the configuration details of your CodeQL pack prior to publishing. Open the <code class="docutils literal notranslate"><span class="pre">qlpack.yml</span></code> file in your preferred text editor.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>library: # set to true if the pack is a library. Set to false or omit for a query pack
+name: &lt;scope&gt;/&lt;pack&gt;
+version: &lt;x.x.x&gt;
+description: &lt;Description to publish with the package&gt;
+default-suite: # optional, one or more queries in the pack to run by default
+    - query: &lt;relative-path&gt;/query-file&gt;.ql
+default-suite-file: default-queries.qls # optional, a pointer to a query-suite in this pack
+license: # optional, the license under which the pack is published
+dependencies: # map from CodeQL pack name to version range
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name:</span></code> must follow the &lt;scope&gt;/&lt;pack&gt; format, where &lt;scope&gt; is the GitHub organization that you will publish to and &lt;pack&gt; is the name for the pack.</p></li>
+<li><p>A maximum of one of <code class="docutils literal notranslate"><span class="pre">default-suite</span></code> or <code class="docutils literal notranslate"><span class="pre">default-suite-file</span></code> is allowed. These are two different ways to define a default query suite to be run, the first by specifying queries directly in the <cite>qlpack.yml</cite> file and the second by specifying a query suite in the pack.</p></li>
+</ul>
+</section>
+<section id="running-codeql-pack-publish">
+<h2>Running <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">pack</span> <span class="pre">publish</span></code><a class="headerlink" href="#running-codeql-pack-publish" title="Link to this heading">¶</a></h2>
+<p>When you are ready to publish a pack to the GitHub Container registry, you can run the following command in the root of the pack directory:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql pack publish
+</pre></div>
+</div>
+<p>The published package will be displayed in the packages section of GitHub organization specified by the scope in the <code class="docutils literal notranslate"><span class="pre">qlpack.yml</span></code> file.</p>
+</section>
+<section id="running-codeql-pack-download-scope-pack">
+<h2>Running <code class="docutils literal notranslate"><span class="pre">codeql</span> <span class="pre">pack</span> <span class="pre">download</span> <span class="pre">&lt;scope&gt;/&lt;pack&gt;</span></code><a class="headerlink" href="#running-codeql-pack-download-scope-pack" title="Link to this heading">¶</a></h2>
+<p>To run a pack that someone else has created, you must first download it by running the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql pack download &lt;scope&gt;/&lt;pack&gt;@x.x.x
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;scope&gt;</span></code>: the name of the GitHub organization that you will download from.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;pack&gt;</span></code>: the name for the pack that you want to download.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;x.x.x</span></code>: an optional version number. If omitted, the latest version will be downloaded.</p></li>
+</ul>
+<p>This command accepts arguments for multiple packs.</p>
+</section>
+<section id="using-a-codeql-pack-to-analyze-a-codeql-database">
+<h2>Using a CodeQL pack to analyze a CodeQL database<a class="headerlink" href="#using-a-codeql-pack-to-analyze-a-codeql-database" title="Link to this heading">¶</a></h2>
+<p>To analyze a CodeQL database with a CodeQL pack, run the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql database analyze &lt;database&gt; &lt;scope&gt;/&lt;pack&gt;@x.x.x
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;database&gt;</span></code>: the CodeQL database to be analyzed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;scope&gt;</span></code>: the name of the GitHub organization that the pack is published to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;pack&gt;</span></code>: the name for the pack that you are using.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;x.x.x</span></code>: an optional version number. If omitted, the latest version will be used.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">analyze</span></code> command will run the default suite of any specified CodeQL packs. You can specify multiple CodeQL packs to be used for analyzing a CodeQL database. For example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>codeql &lt;database&gt; analyze &lt;scope&gt;/&lt;pack&gt; &lt;scope&gt;/&lt;other-pack&gt;
+</pre></div>
+</div>
+</section>
+</section>
+
+
+    </article>
+
+    <!-- GitHub footer, with links to terms and privacy statement -->
+    <div class="px-3 px-md-6 f6 py-4 d-sm-flex flex-justify-between flex-row-reverse flex-items-center border-top">
+        <ul class="list-style-none d-flex flex-items-center mb-3 mb-sm-0 lh-condensed-ultra">
+            <li class="mr-3">
+                <a href="https://twitter.com/github" title="GitHub on Twitter" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273.5 222.3" class="d-block" height="18">
+                        <path
+                            d="M273.5 26.3a109.77 109.77 0 0 1-32.2 8.8 56.07 56.07 0 0 0 24.7-31 113.39 113.39 0 0 1-35.7 13.6 56.1 56.1 0 0 0-97 38.4 54 54 0 0 0 1.5 12.8A159.68 159.68 0 0 1 19.1 10.3a56.12 56.12 0 0 0 17.4 74.9 56.06 56.06 0 0 1-25.4-7v.7a56.11 56.11 0 0 0 45 55 55.65 55.65 0 0 1-14.8 2 62.39 62.39 0 0 1-10.6-1 56.24 56.24 0 0 0 52.4 39 112.87 112.87 0 0 1-69.7 24 119 119 0 0 1-13.4-.8 158.83 158.83 0 0 0 86 25.2c103.2 0 159.6-85.5 159.6-159.6 0-2.4-.1-4.9-.2-7.3a114.25 114.25 0 0 0 28.1-29.1"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.facebook.com/GitHub" title="GitHub on Facebook" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.3 15.4" class="d-block" height="18">
+                        <path
+                            d="M14.5 0H.8a.88.88 0 0 0-.8.9v13.6a.88.88 0 0 0 .8.9h7.3v-6h-2V7.1h2V5.4a2.87 2.87 0 0 1 2.5-3.1h.5a10.87 10.87 0 0 1 1.8.1v2.1h-1.3c-1 0-1.1.5-1.1 1.1v1.5h2.3l-.3 2.3h-2v5.9h3.9a.88.88 0 0 0 .9-.8V.8a.86.86 0 0 0-.8-.8z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3">
+                <a href="https://www.youtube.com/github" title="GitHub on YouTube" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 13.6" class="d-block" height="16">
+                        <path
+                            d="M18.77 2.13A2.4 2.4 0 0 0 17.09.42C15.59 0 9.58 0 9.58 0a57.55 57.55 0 0 0-7.5.4A2.49 2.49 0 0 0 .39 2.13 26.27 26.27 0 0 0 0 6.8a26.15 26.15 0 0 0 .39 4.67 2.43 2.43 0 0 0 1.69 1.71c1.52.42 7.5.42 7.5.42a57.69 57.69 0 0 0 7.51-.4 2.4 2.4 0 0 0 1.68-1.71 25.63 25.63 0 0 0 .4-4.67 24 24 0 0 0-.4-4.69zM7.67 9.71V3.89l5 2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li class="mr-3 flex-self-start">
+                <a href="https://www.linkedin.com/company/github" title="GitHub on Linkedin" style="color: #959da5;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 18" class="d-block" height="18">
+                        <path
+                            d="M3.94 2A2 2 0 1 1 2 0a2 2 0 0 1 1.94 2zM4 5.48H0V18h4zm6.32 0H6.34V18h3.94v-6.57c0-3.66 4.77-4 4.77 0V18H19v-7.93c0-6.17-7.06-5.94-8.72-2.91z"
+                            fill="currentColor"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/github" title="GitHub's organization" style="color: #959da5;">
+                    <svg version="1.1" width="20" height="20" viewBox="0 0 16 16" class="octicon octicon-mark-github"
+                        aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-style-none d-flex text-gray">
+            <li class="mr-3">&copy; 
+                <script type="text/javascript">document.write(new Date().getFullYear());</script> GitHub, Inc.</li>
+            <li class="mr-3"><a
+                    href="https://docs.github.com/github/site-policy/github-terms-of-service"
+                    class="link-gray">Terms </a></li>
+            <li><a href="https://docs.github.com/github/site-policy/github-privacy-statement"
+                    class="link-gray">Privacy </a></li>
+        </ul>
+    </div>
+</div>
+</main>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".toggle > *").hide();
+        $(".toggle .name").show();
+        $(".toggle .name").click(function () {
+            $(this).parent().children().not(".name").toggle(400);
+            $(this).parent().children(".name").toggleClass("open");
+        })
+    });
+</script>
+
+  </body>
+</html>
